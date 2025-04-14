@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Entropia – Projeto MPB dev</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7271f29f9498218151f3120baddb7363.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-97b9b0c4c0c4ea1c81d35afee23d1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "showHighlights": "never"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    document.querySelector('link.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Entropia</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logos/logo-projeto.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://projetompb.github.io/site/" title="Projeto MPB" class="quarto-navigation-tool px-1" aria-label="Projeto MPB"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/ProjetoMPB/site" title="Projeto MPB (repositório)" class="quarto-navigation-tool px-1" aria-label="Projeto MPB (repositório)"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Página inicial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../blog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blog do projeto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Dados gerais</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introdução</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/nossa-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A “nossa” MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/estilo-musical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uma breve discussão sobre estilo musical</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/corpora-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Os <em>corpora</em> MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Modelos teóricos</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/harmonia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Harmonia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/melodia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Melodia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/notas-funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notas-funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/probabilidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probabilidade e entropia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Metodologia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-prim-sec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos primários e secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Material suplementar</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/cifragem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cifragem</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/tipos-acordais.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tipos acordais</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossário</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Resultados</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-primarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos primários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-secundarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Fase 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/n-grams.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">n-gramas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/ng-especificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">n-gramas específicos</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/listagem-corpora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Listagem dos <em>corpora</em></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/producao-bibliografica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Produção bibliográfica</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">1</span> Introdução</a></li>
+  <li><a href="#subdomínio-do-contorno-melódico" id="toc-subdomínio-do-contorno-melódico" class="nav-link" data-scroll-target="#subdomínio-do-contorno-melódico"><span class="header-section-number">2</span> Subdomínio do contorno melódico</a>
+  <ul class="collapse">
+  <li><a href="#c-letra-u-repetição" id="toc-c-letra-u-repetição" class="nav-link" data-scroll-target="#c-letra-u-repetição"><span class="header-section-number">2.1</span> c-letra <strong>u</strong> (“repetição”)</a></li>
+  <li><a href="#c-letra-p-passo-ascendente" id="toc-c-letra-p-passo-ascendente" class="nav-link" data-scroll-target="#c-letra-p-passo-ascendente"><span class="header-section-number">2.2</span> c-letra <strong>P</strong> (“passo ascendente”)</a></li>
+  <li><a href="#c-letra-p-passo-descendente" id="toc-c-letra-p-passo-descendente" class="nav-link" data-scroll-target="#c-letra-p-passo-descendente"><span class="header-section-number">2.3</span> c-letra <strong>p</strong> (“passo descendente”)</a></li>
+  <li><a href="#c-letra-a-arpejo-ascendente" id="toc-c-letra-a-arpejo-ascendente" class="nav-link" data-scroll-target="#c-letra-a-arpejo-ascendente"><span class="header-section-number">2.4</span> c-letra <strong>A</strong> (“arpejo ascendente”)</a></li>
+  <li><a href="#c-letra-a-arpejo-descendente" id="toc-c-letra-a-arpejo-descendente" class="nav-link" data-scroll-target="#c-letra-a-arpejo-descendente"><span class="header-section-number">2.5</span> c-letra <strong>a</strong> (“arpejo descendente”)</a></li>
+  <li><a href="#c-letra-s-salto-ascendente" id="toc-c-letra-s-salto-ascendente" class="nav-link" data-scroll-target="#c-letra-s-salto-ascendente"><span class="header-section-number">2.6</span> c-letra <strong>S</strong> (“salto ascendente”)</a></li>
+  <li><a href="#c-letra-s-salto-descendente" id="toc-c-letra-s-salto-descendente" class="nav-link" data-scroll-target="#c-letra-s-salto-descendente"><span class="header-section-number">2.7</span> c-letra <strong>s</strong> (“salto descendente”)</a></li>
+  </ul></li>
+  <li><a href="#subdomínio-do-ritmo" id="toc-subdomínio-do-ritmo" class="nav-link" data-scroll-target="#subdomínio-do-ritmo"><span class="header-section-number">3</span> Subdomínio do ritmo</a>
+  <ul class="collapse">
+  <li><a href="#r-letra-b" id="toc-r-letra-b" class="nav-link" data-scroll-target="#r-letra-b"><span class="header-section-number">3.1</span> r-letra <strong>b</strong></a></li>
+  <li><a href="#r-letra-e" id="toc-r-letra-e" class="nav-link" data-scroll-target="#r-letra-e"><span class="header-section-number">3.2</span> r-letra <strong>e</strong></a></li>
+  <li><a href="#r-letra-j" id="toc-r-letra-j" class="nav-link" data-scroll-target="#r-letra-j"><span class="header-section-number">3.3</span> r-letra <strong>j</strong></a></li>
+  <li><a href="#r-letra-n" id="toc-r-letra-n" class="nav-link" data-scroll-target="#r-letra-n"><span class="header-section-number">3.4</span> r-letra <strong>n</strong></a></li>
+  <li><a href="#r-letra-r" id="toc-r-letra-r" class="nav-link" data-scroll-target="#r-letra-r"><span class="header-section-number">3.5</span> r-letra <strong>r</strong></a></li>
+  <li><a href="#r-letra-s" id="toc-r-letra-s" class="nav-link" data-scroll-target="#r-letra-s"><span class="header-section-number">3.6</span> r-letra <strong>s</strong></a></li>
+  </ul></li>
+  <li><a href="#domínio-da-harmonia" id="toc-domínio-da-harmonia" class="nav-link" data-scroll-target="#domínio-da-harmonia"><span class="header-section-number">4</span> Domínio da harmonia</a>
+  <ul class="collapse">
+  <li><a href="#classe-funcional-dia" id="toc-classe-funcional-dia" class="nav-link" data-scroll-target="#classe-funcional-dia"><span class="header-section-number">4.1</span> Classe funcional DIA</a></li>
+  <li><a href="#classe-funcional-pre" id="toc-classe-funcional-pre" class="nav-link" data-scroll-target="#classe-funcional-pre"><span class="header-section-number">4.2</span> Classe funcional PRE</a></li>
+  <li><a href="#classe-funcional-e1" id="toc-classe-funcional-e1" class="nav-link" data-scroll-target="#classe-funcional-e1"><span class="header-section-number">4.3</span> Classe funcional E1</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/entropia.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/entropia.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Entropia</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1</span> Introdução</h2>
+<p>Este capítulo tem por objetivo apresentar resultados das análises referentes à medição de entropia de alguns aspectos melódicos, rítmicos e harmônicos computados no processo analítico. Assim, para cada evento selecionado para medição,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> será explicitada sua entropia (medida em bits) e o número de suas possíveis continuações com probabilidade de ocorrência maior do que 0.01 (ou 1%), um limite por nós arbitrado.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Serão identificadas neste exame apenas as três mais prováveis continuações para cada evento.</p>
+<p>Também por uma questão de foco, as análises das entropias dos domínios/subdomínios estruturais não abrangerão a totalidade de seus respectivos conteúdos, mas apenas subgrupos de seus eventos, formados por aqueles, de algum modo, mais significativos musicalmente, que apresentam-se assim como representantes de seus respectivos alfabetos.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>As discussões que se seguem a cada conjunto de gráficos considerarão não apenas os dados quantitativos (entropia e número de continuações acima do limite de 1%), mas também aspectos qualitativos, a partir de uma tipologia que será descrita a seguir.</p>
+<p>O primeiro conceito que introduziremos é o de <strong>reflexão</strong>, que se aplica quando uma das três mais frequentes continuações de um dado evento for uma replicação do evento em questão. Uma reflexão será <strong>alta</strong> quando corresponder à primeira continuação (e será <strong>baixa</strong> se acontecer nas posições 2 ou 3). Nos gráficos de entropia, a ocorrência de reflexão em uma das três continuações consideradas será indicada por uma barra de fundo cinza (continuações não reflexivas serão representadas por barras com fundo preto).</p>
+<p>As duas outras ideias se referem à primeira continuação (seja reflexiva ou não). Ela será <strong>proeminente</strong> se seu percentual for igual ou maior que 50%. Por outro lado, a primeira continuação (não necessariamente proeminente) será considerada <strong>forte</strong> caso seu percentual seja ao menos o dobro do percentual da segunda continuação.</p>
+<p>O cruzamento dessas categorias torna-se assim um recurso de apoio para a qualificação das entropias dos eventos em análise.</p>
+</section>
+<section id="subdomínio-do-contorno-melódico" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="subdomínio-do-contorno-melódico"><span class="header-section-number">2</span> Subdomínio do contorno melódico</h2>
+<p>Os sete gráficos abaixo examinam as entropias das c-letras que formam o alfabeto Ac.</p>
+<section id="c-letra-u-repetição" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="c-letra-u-repetição"><span class="header-section-number">2.1</span> c-letra <strong>u</strong> (“repetição”)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-01.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à c-letra u, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A r-letra u é <strong>reflexiva-alta</strong> em todos os <em>corpora</em>. É ainda <strong>proeminente-forte</strong> em metade deles (Jobim, Chico, Bosco, Milton e Rita). No conjunto MPB apresenta-se como <strong>reflexiva-alta-forte</strong>. Tais dados indicam uma forte tendência <em>autoatrativa</em> dessa c-letra como uma característica da Prática Comum da MPB. Ou seja, <em>u</em> é não apenas bastante frequente em linhas melódicas emepebísticas, como também o são sequências de notas repetidas, um elemento que se mostra, assim, caracterizante em todos os repertórios (ao menos, em média). Classificaremos, a partir deste ponto, como <strong>inercial</strong> um determinado evento que se apresente como <strong>reflexiva-forte</strong> em cinco ou mais repertórios de análise. Podemos assim considerar <em>u</em> como intensamente inercial.</p>
+</section>
+<section id="c-letra-p-passo-ascendente" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="c-letra-p-passo-ascendente"><span class="header-section-number">2.2</span> c-letra <strong>P</strong> (“passo ascendente”)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-02.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à c-letra P, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>P é <strong>reflexiva</strong> em todos os <em>corpora</em>, sendo também <strong>forte</strong> em quatro deles (o que não a torna <strong>inercial</strong>, dentro de nossa classificação). Em nenhum repertório apresenta-se como <strong>predominante</strong>. Entretanto, diferindo-se dos demais casos, a continuação de <em>P</em> na c-letra <em>u</em> no <em>corpus</em> Chico é <strong>predoominante-alta</strong>, o que sugere ser esta uma característica estilística pessoal na construção melódica do compositor.</p>
+</section>
+<section id="c-letra-p-passo-descendente" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="c-letra-p-passo-descendente"><span class="header-section-number">2.3</span> c-letra <strong>p</strong> (“passo descendente”)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-03.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à c-letra p, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Como acontece com a repetição (u), a c-letra <em>p</em> é <strong>reflexiva-alta</strong> em todos os repertórios (o que, por si só, a torna fortemente <strong>inercial</strong>), tendendo, portanto, a se perpetuar em linhas escalares descendentes. Em reforço a isso, em cinco dos 10 <em>corpora</em> (Lins, Chico, Edu, Caetano e Gil), além do próprio conjunto MPB, apresenta-se também como uma continuação <strong>forte</strong>.</p>
+</section>
+<section id="c-letra-a-arpejo-ascendente" class="level3" data-number="2.4">
+<h3 data-number="2.4" class="anchored" data-anchor-id="c-letra-a-arpejo-ascendente"><span class="header-section-number">2.4</span> c-letra <strong>A</strong> (“arpejo ascendente”)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-04.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à c-letra A, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A c-letra <em>A</em> apresenta um perfil consideravelmente distinto dos casos anteriores. Em apenas quatro <em>corpora</em> é <strong>reflexiva</strong> (sendo também <strong>forte</strong> somente em um deles – Lins). As demais continuações preferenciais privilegiam repetições <em>u</em> (três <em>corpora</em>) ou provocam mudança de direção melódica (ou seja, descendente) com <em>p</em> (também três <em>corpora</em> – apresentando-se como <strong>alta</strong> em Jobim) e <em>a</em> (um <em>corpus</em>).</p>
+</section>
+<section id="c-letra-a-arpejo-descendente" class="level3" data-number="2.5">
+<h3 data-number="2.5" class="anchored" data-anchor-id="c-letra-a-arpejo-descendente"><span class="header-section-number">2.5</span> c-letra <strong>a</strong> (“arpejo descendente”)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-05.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à c-letra a, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>O movimento arpejado descendente (a) apresenta um comportamento semelhante ao ascendente (A), sendo <strong>reflexiva</strong> em cinco <em>corpora</em>, sendo <strong>forte</strong> em apenas dois (Lins e Bosco) e, mesmo assim, como percentuais bem próximos dos das segundas continuações. Vistos assim em conjunto, podemos considerar que saltos curtos tendem, em geral, a ser movimentos isolados e seguidos por outros tipos, preferencialmente em direções inversas.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="c-letra-s-salto-ascendente" class="level3" data-number="2.6">
+<h3 data-number="2.6" class="anchored" data-anchor-id="c-letra-s-salto-ascendente"><span class="header-section-number">2.6</span> c-letra <strong>S</strong> (“salto ascendente”)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-06.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à c-letra S, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Um elemento marcante de <em>S</em> em relação às demais c-letras é o fato de não ser <strong>reflexiva</strong> em nenhum dos <em>corpora</em>. Por outro lado, é altamente enviezada pela continuação em passo descendente (p),<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> que acontece em nove dos 11 gráficos. Em Gil e Rita a continuação <em>p</em> é <strong>proeminente</strong> (mais do que 50%), o que acontece também no <em>corpus</em> Caetano, acrescentando-se também, neste caso, a propriedade <strong>alta</strong>.</p>
+</section>
+<section id="c-letra-s-salto-descendente" class="level3" data-number="2.7">
+<h3 data-number="2.7" class="anchored" data-anchor-id="c-letra-s-salto-descendente"><span class="header-section-number">2.7</span> c-letra <strong>s</strong> (“salto descendente”)</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-07.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à c-letra s, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A c-letra <em>s</em>, assim como sua contraparte <em>S</em>, não é <strong>reflexiva</strong> em nenhum repertório.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Também como <em>S</em> tende a ser seguida por um movimento em sentido contrário, neste caso, porém, não um único tipo, mas apresentando três alternativas: <em>A</em> (seis <em>corpora</em>, Jobim, Edu, Caetano, Djavan, Milton e Gil – neste como <strong>proeminente-forte</strong>), <em>S</em> (dois <em>corpora</em>, Chico e Djavan) e <em>u</em> (Bosco e Rita).<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+</section>
+</section>
+<section id="subdomínio-do-ritmo" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="subdomínio-do-ritmo"><span class="header-section-number">3</span> Subdomínio do ritmo</h2>
+<p>Devido ao tamanho do alfabeto de r-letras (26 símbolos), foram selecionadas para a análise de entropia as seis r-letras mais recorrentes do conjunto MPB: j, b, e, n, r, s.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<section id="r-letra-b" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="r-letra-b"><span class="header-section-number">3.1</span> r-letra <strong>b</strong></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-08.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à r-letra b, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A r-letra <em>b</em> pode ser considerada, analogamente à categoria funcional I, uma espécie de <em>tônica micrométrica</em>, não apenas por ser uma finalização bastante comum de c/r-palavras, mas por sua alta recorrência em todos os repertórios analisados (é o 1-grama rítmico mais comum em sete dos 10 <em>corpora</em> MPB). Como se observa no gráfico, <em>b</em> é <strong>reflexiva-forte</strong> em todos os 11 casos, sendo também <strong>alta</strong> em Djavan e <strong>proeminente-alta</strong> em Lins, Edu e, especialmente, em Milton.</p>
+</section>
+<section id="r-letra-e" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="r-letra-e"><span class="header-section-number">3.2</span> r-letra <strong>e</strong></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-09.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à r-letra e, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A r-letra <em>e</em> apresenta-se como <strong>reflexiva-fraca</strong> em quase todos os repertórios (apenas em Jobim não está entre as três mais prováveis continuações). É, por assim dizer, atraída por <em>j</em>, que se apresenta como continuação preferencial em nove <em>corpora</em> (e no conjunto MPB),<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> sendo que em cinco deles (Jobim, Chico, Caetano, Gil e Rita) é também <strong>proeminente-alta</strong>.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+</section>
+<section id="r-letra-j" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="r-letra-j"><span class="header-section-number">3.3</span> r-letra <strong>j</strong></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-10.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à r-letra j, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A r-letra que corresponde ao par de colcheias (j) é <strong>reflexiva-forte</strong> em nove dos <em>corpora</em> (bem como no conjunto MPB), sendo ainda <strong>proeminente-alta</strong> em Chico, Gil e Rita (estes dois com grande destaque), o que sugere que linhas em colcheias tendem a se perpetuar em frases (algo que foi observado com bastante frequência nas análises dos vários repertórios), ou seja, pode ser considerada como uma r-letra <strong>inercial</strong> (à semelhança do que acontece, no domínio das alturas, com as c-letras <em>u</em>, <em>p</em>.</p>
+</section>
+<section id="r-letra-n" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="r-letra-n"><span class="header-section-number">3.4</span> r-letra <strong>n</strong></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-11.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à r-letra n, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A r-letra <em>n</em>, unidade que, por si só, representa a essência da sincopação do samba,<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> tem marcante presença na Prática Comum da MPB, apresentando-se como <strong>reflexiva-forte</strong> em oito dos 10 <em>corpora</em> de análise (as exceções são Milton e Rita, nos quais <em>n</em> não é uma das três mais prováveis continuações).<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> Em Jobim, Djavan, Bosco e Gil (e no conjunto MPB), a continuação em <em>n</em> é ainda <strong>proeminente</strong>. Destacam-se como continuações prováveis as r-letras <em>c</em> e <em>r</em>, que quando combinadas a <em>n</em>, formam blocos sincopados bastante recorrentes em gêneros de samba e bossa nova.</p>
+</section>
+<section id="r-letra-r" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="r-letra-r"><span class="header-section-number">3.5</span> r-letra <strong>r</strong></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-12.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à r-letra r, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A r-letra <em>r</em> é <strong>reflexiva</strong> em seis <em>corpora</em> (apenas em Caetano e Gil é também <strong>forte</strong>). Considerando suas continuações preferenciais, <em>n</em> é a mais provável em seis dos repertórios (e também no conjunto MPB), o que gera bigramas sincopados bem recorrentes em contextos de samba e bossa nova.</p>
+</section>
+<section id="r-letra-s" class="level3" data-number="3.6">
+<h3 data-number="3.6" class="anchored" data-anchor-id="r-letra-s"><span class="header-section-number">3.6</span> r-letra <strong>s</strong></h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-13.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à r-letra s, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>O grupo de quiálteras de colcheias (s) é <strong>reflexiva</strong> em oito <em>corpora</em> (sendo também <strong>forte</strong> apenas em Gil e Lins). Sua continuação mais provável é a r-letra <em>b</em> (especialmente posicionada em finais de segmentos), que se apresenta como preferencial em sete dos repertórios (e no conjunto MPB), tendo maior destaque em Jobim, como <strong>proeminente-alta</strong>.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a></p>
+</section>
+</section>
+<section id="domínio-da-harmonia" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="domínio-da-harmonia"><span class="header-section-number">4</span> Domínio da harmonia</h2>
+<section id="classe-funcional-dia" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="classe-funcional-dia"><span class="header-section-number">4.1</span> Classe funcional DIA</h3>
+<section id="categoria-funcional-i" class="level4" data-number="4.1.1">
+<h4 data-number="4.1.1" class="anchored" data-anchor-id="categoria-funcional-i"><span class="header-section-number">4.1.1</span> Categoria funcional I</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-14.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional I, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Uma propriedade interessante observada na categoria I é a <strong>reflexão</strong>. Explica-se, principalmente, pelo uso de variantes de tipos acordais que denotam movimentações internas de vozes (por exemplo, CM7 | C6), um recurso relativamente comum na estruturação harmônica em vários dos repertórios. Em cinco dos <em>corpora</em> (Jobim, Lins, Edu, Bosco e Milton – além do próprio conjunto MPB) a categoria apresenta-se como <strong>reflexiva-forte-alta</strong>.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> Excluindo a continuação reflexiva, V, IV e IV7 são as mais prováveis opções de continuação.</p>
+</section>
+<section id="categoria-funcional-v" class="level4" data-number="4.1.2">
+<h4 data-number="4.1.2" class="anchored" data-anchor-id="categoria-funcional-v"><span class="header-section-number">4.1.2</span> Categoria funcional V</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-15.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional V, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Embora V seja também uma categoria <strong>reflexiva</strong> em todos os repertórios,<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> apresenta-se sempre como <strong>fraca</strong>, já que é intensamente atraída pelo grau tônico I. Esta continuação preferencial se apresenta como <strong>predominante-alta</strong> em seis <em>corpora</em> (Chico, Djavan, Bosco, Milton, Gil e, especialmente, Caetano) e como <strong>predominante</strong> nos demais.</p>
+</section>
+<section id="categoria-funcional-iv" class="level4" data-number="4.1.3">
+<h4 data-number="4.1.3" class="anchored" data-anchor-id="categoria-funcional-iv"><span class="header-section-number">4.1.3</span> Categoria funcional IV</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-16.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional IV, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A categoria IV apresenta-se como <strong>reflexiva</strong> em metade dos repertórios (apenas em Lins e Edu é <strong>reflexiva-forte</strong>). Em relação às continuações de maior probabilidade, as opções dividem-se entre V (Chico, Djavan, Bosco, além do conjunto MPB) – uma espécie de “solução cadencial” associada mais firmemente à sintaxe funcional-tonal – e I (Caetano, Milton, Gil e Rita) – denotando uma preferência pelo gesto plagal, ou “solução modal”.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a> Apenas em Jobim a continuação preferencial não é diatônica – IVm7 – evidenciando a forte presença da “descida plagal”<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a> na obra do compositor.</p>
+</section>
+<section id="categoria-funcional-ii" class="level4" data-number="4.1.4">
+<h4 data-number="4.1.4" class="anchored" data-anchor-id="categoria-funcional-ii"><span class="header-section-number">4.1.4</span> Categoria funcional II</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-17.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional II, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Assim como V, a categoria II se apresenta como <strong>reflexiva</strong> em metade dos <em>corpora</em> (porém, desta vez, em todos os casos, como <strong>fraca</strong>). O que chama mais atenção, entretanto, é a forte atração que II tem pela continuação V, a qual apresenta-se como <strong>predominante-alta</strong> em oito dos repertórios (e mais no conjunto MPB), com destaque especial para o <em>corpus</em> Caetano, com probabilidade de ocorrência de 83%.</p>
+</section>
+<section id="categoria-funcional-vi" class="level4" data-number="4.1.5">
+<h4 data-number="4.1.5" class="anchored" data-anchor-id="categoria-funcional-vi"><span class="header-section-number">4.1.5</span> Categoria funcional VI</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-18.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional VI, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>A propriedade de <strong>reflexão</strong> de VI ocorre em sete <em>corpora</em>, sendo em três deles como <strong>forte</strong>.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> Em termos de continuações preferenciais, em nenhum dos casos encontra-se <strong>predominância</strong>, sendo que apenas em Caetano a primeira continuação tem a propriedade de ser <strong>alta</strong>. Além dos três casos reflexivos, as demais preferências se dividem entre II (três casos – privilegiando a opção do movimento de fundamentais de quarta justa ascendente), I (dois casos), IV e V (um caso cada).</p>
+</section>
+<section id="categoria-funcional-iii" class="level4" data-number="4.1.6">
+<h4 data-number="4.1.6" class="anchored" data-anchor-id="categoria-funcional-iii"><span class="header-section-number">4.1.6</span> Categoria funcional III</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-19.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional III, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Mais rara e com entropia mais alta que os demais diatônicos, a categoria III tem também um comportamento distinto em relação àquelas. Apresenta-se como <strong>reflexiva</strong> em apenas dois <em>corpora</em>, Bosco e Edu (onde é também <strong>forte-alta</strong>). Suas continuações preferenciais são VI (quatro casos, seguindo a lógica do movimento de fundamentais por quarta justa ascendente) e II (em três outros, evidenciando um movimento escalar descendente que omite – ou abrevia – a preparação V/II).</p>
+</section>
+</section>
+<section id="classe-funcional-pre" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="classe-funcional-pre"><span class="header-section-number">4.2</span> Classe funcional PRE</h3>
+<p>Para esta classe, introduziremos o conceito de continuação <strong>atrativa</strong>. Diz respeito aos alvos “declarados” (na própria simbologia funcional) das respectivas categorias funcionais. Assim, por exemplo, V/II <em>atrai</em> o diatônico II. Espera-se, portanto, que as continuações <strong>atrativas</strong> sejam sempre preferenciais em cada caso, já que isso estaria na própria razão de existência de seu preparador.<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> Usaremos barras azuis nos próximos gráficos para evidenciar as continuações <strong>atrativas</strong>.</p>
+<p>Subclassee DS</p>
+<section id="categoria-funcional-vv" class="level4" data-number="4.2.1">
+<h4 data-number="4.2.1" class="anchored" data-anchor-id="categoria-funcional-vv"><span class="header-section-number">4.2.1</span> Categoria funcional V/V</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-20.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional V/V, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”. Barras azuis indicam os alvos diatônicos pretendidos.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Uma característica esperada de todos os dominantes secundários é a <strong>reflexão</strong>, já que faz parte do idioma MPB o encademanto entre acordes de qualidade X7 com mesma fundamental diferindo apenas pela variante empregada (por exemplo, G4.7 | G7, D7.9 | D7(b9), Bb7(13) | Bb7(b13) etc.). De fato, com a exceção dos <em>corpora</em> Caetano e Djavan (nos quais V/V não se encontra entre as três mais recorrentes continuações), todos os demais a categoria se apresenta como <strong>reflexiva-baixa</strong> (ou seja, na segunda ou na terceira posição). Por outro lado, o alvo V apresenta a propriedade <strong>atrativa</strong> em todos os repertórios, sendo também <strong>alta</strong> em Chico, Caetano, Bosco, Milton e Gil, e <strong>proeminente-alta</strong> em Djavan e, especialmente, Rita (com quase 70% de probabilidade de ocorrência).</p>
+</section>
+<section id="categoria-funcional-viv" class="level4" data-number="4.2.2">
+<h4 data-number="4.2.2" class="anchored" data-anchor-id="categoria-funcional-viv"><span class="header-section-number">4.2.2</span> Categoria funcional V/IV</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-21.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional V/IV, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”. Barras azuis indicam os alvos diatônicos pretendidos.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Certamente não por acaso, V/IV tem um comportamento bastante semelhante a V/V no aspecto aqui examinado.<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a> Assim, a categoria é <strong>reflexiva</strong> em todos os <em>corpora</em> (apenas em Edu é também <strong>alta</strong>). Seu alvo declarado apresenta-se como continuação <strong>atrativa</strong> em todos os repertórios, <strong>forte</strong> em quatro deles e <strong>proeminente</strong> em dois Gil e Caetano (neste caso, como 73% de probabilidade).</p>
+</section>
+<section id="categoria-funcional-vii" class="level4" data-number="4.2.3">
+<h4 data-number="4.2.3" class="anchored" data-anchor-id="categoria-funcional-vii"><span class="header-section-number">4.2.3</span> Categoria funcional V/II</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-22.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional V/II, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”. Barras azuis indicam os alvos diatônicos pretendidos.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Em comparação aos casos anteriores vemos algumas diferenças significativas, devido a características especiais da categoria V/II: (a) a propriedade de <strong>reflexão</strong> deixa de ser ubíqua, atingindo sete dos repertórios (e apenas em Lins apresenta-se como <strong>forte</strong>); (b) a continuação no alvo II, embora seja sempre uma das três mais prováveis dos <em>corpora</em>, é <strong>atrativa</strong> em apenas três casos (Jobim, Caetano e Rita), em nenhum deles como <strong>predominante</strong> ou <strong>alta</strong>; (c) V/V apresenta-se como uma continuação ainda mais provável do que o alvo declarado (II) em cinco repertórios (além do próprio conjunto MPB).<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a> Esse fato denota a força das fórmulas de dominantes consecutivos nos repertórios analisados, especialmente envolvendo o 3-grama V/II | V/V | V, o mais recorrente (em média) das alternativas disponíveis.<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a></p>
+</section>
+<section id="categoria-funcional-vvi" class="level4" data-number="4.2.4">
+<h4 data-number="4.2.4" class="anchored" data-anchor-id="categoria-funcional-vvi"><span class="header-section-number">4.2.4</span> Categoria funcional V/VI</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-23.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional V/VI, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”. Barras azuis indicam os alvos diatônicos pretendidos.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>O número de <em>corpora</em> nos quais a categoria V/VI mostra-se como <strong>reflexiva</strong> é ainda menor do que no caso de V/II: apenas quatro. Por outro lado, o alvo VI apresenta-se como <strong>atrativa</strong> (ou seja, como continuação preferencial) em nove dos repertórios (apenas em Jobim é suplantada – por pequena margem percentual – pela <strong>reflexão</strong> de V/VI), ajustando-se aos padrões observados em V/IV e V/V. Apesar disso, em nenhum dos casos a categoria se apresenta como <strong>predominante</strong> ou <strong>alta</strong>. Em relação ao emprego em cadeias de dominantes secundários, a continuação esperada (V/II) é encontrada em sete dos repertórios (sempre como segunda ou terceira opções).</p>
+</section>
+<section id="categoria-funcional-viii" class="level4" data-number="4.2.5">
+<h4 data-number="4.2.5" class="anchored" data-anchor-id="categoria-funcional-viii"><span class="header-section-number">4.2.5</span> Categoria funcional V/III</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-24.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional V/III, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”. Barras azuis indicam os alvos diatônicos pretendidos.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Como já apontado em outras avaliações harmônicas deste projeto, o alvo III é a categoria diatônica menos comum de sua classe, o que torna, consequentemente, ainda mais raro o seu dominante secundário (V/III). Essa constatação talvez explique a inusitada quantidade de “empates” entre as continuações principais, o que é observado em nada menos do que cinco <em>corpora</em> (Djavan, Bosco, Milton, Gil e Rita). Em quatro outros, III apresenta-se como <strong>atrativa</strong> (e tabém <strong>predominante</strong> em dois deles, Chico e Edu). Apenas em Lins, V/III mostra-se como <strong>reflexiva-alta</strong> (empatada em primeiro lugar com “II”).<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a> Entre outras continuações disponíveis, destaca-se a presença da categoria “II”. Ainda que esta englobe genericamente todas as possíveis instâncias da categoria denominada informalmente “II relativo”, nesse contexto, entretanto, denota claramente o termo locucional “II/II” (Em7 ou Em7(b5), em Dó maior), um uso idiomático de sobreposição bifuncional (aproveitando a identidade desse acorde e o alvo declarado – III).<a href="#fn24" class="footnote-ref" id="fnref24" role="doc-noteref"><sup>24</sup></a> Por fim, evidenciando ainda a raridade da sequência de dominantes consecutivos iniciando-se em V/III,<a href="#fn25" class="footnote-ref" id="fnref25" role="doc-noteref"><sup>25</sup></a> a continuação-alvo (V/VI) aparece apenas em dois dos <em>corpora</em>.</p>
+<p>Subclasse SUBV</p>
+<p>Levando em conta a relativa raridade de categorias da subclasse SUBV em alguns dos <em>corpora</em> (o que torna suas entropias extremamente baixas, ou mesmo nulas, inviabilizando suas análises neste capítulo), optamos por examiná-las apenas dentro do conjunto MPB.<a href="#fn26" class="footnote-ref" id="fnref26" role="doc-noteref"><sup>26</sup></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-25.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes às categorias funcionais da Subclasse SUBV considerando suas distribuições no conjunto MPB. Barras cinza indicam continuações “reflexivas”. Barras azuis indicam os alvos diatônicos pretendidos.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Embora compartilhem com dominantes (primário e secundários) a qualidade X7 e propensões diretas para seus respectivos alvos, as categorias da subclasse SUBV, caracteristicamente, não apresentam a propriedade de <strong>reflexão</strong>, uma interessante distinção de “comportamento” entre as subclasses-irmãs. Por outro lado, ambas as subclasses assemelham-se pelo aspecto de <strong>atratividade</strong> de seus alvos declarados.<a href="#fn27" class="footnote-ref" id="fnref27" role="doc-noteref"><sup>27</sup></a> É, assim, <strong>alta</strong> com II e V e <strong>predominante-alta</strong> com IV e, especialmente, I.</p>
+<p>Subclasse DIM</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-26.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes às categorias funcionais da Subclasse DIM considerando suas distribuições no conjunto MPB. Barras cinza indicam continuações “reflexivas”. Barras azuis indicam os alvos diatônicos pretendidos.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>O caso da entropia das categorias diminutas apresenta diversos aspectos interessantes: (a) a continuação mais provável de V°/V não é seu alvo declarado, mas I, o que se explica pelo uso característico desse diminuto, a saber, como segundo elemento de uma variante da “descida plagal”<a href="#fn28" class="footnote-ref" id="fnref28" role="doc-noteref"><sup>28</sup></a> – IV|V°/V|I (por exemplo, em Dó maior, F|F#°|C/G;<a href="#fn29" class="footnote-ref" id="fnref29" role="doc-noteref"><sup>29</sup></a> (b) Nas demais categorias DIM-Dom (V°/II, V°/III, V°/IV e V°/VI), o alvo declarado apresenta-se como <strong>atrativo</strong>, com um destaque especial para II, que se mostra como continuação <strong>predominante-alta</strong> com percentual bastante elevado (80%); (c) A categoria DIM-Bord I° tende para I em quase 60% dos casos; (d) bIII° (a principal opção da subclasse DIM-Ponte) prepara ainda mais fortemente seu alvo (não declarado explicitamente, mas inferido pelo movimento semitonal de baixo) II, com probabilidade de ocorrência maior do que 80%.</p>
+</section>
+</section>
+<section id="classe-funcional-e1" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="classe-funcional-e1"><span class="header-section-number">4.3</span> Classe funcional E1</h3>
+<p>Assim como o que foi feito na avaliação da classe PRE, optamos por analisar a entropia das categorias da classe dos Empréstimos de Primeira Ordem (E1) em dois blocos: no primeiro deles, as categorias mais comuns da classe, em média – IVm7 e IV7 – são avaliadas nos <em>corpora</em> individuais, enquanto o segundo bloco avalia seis outras categorias relativamente mais raras nos repertórios (bIIM7, #IVm7(b5), Vm7, bVIM7, bVIm7 e bVII7), considerando, nesse caso, seus comportamentos apenas dentro do conjunto MPB.</p>
+<section id="categoria-funcional-ivm7" class="level4" data-number="4.3.1">
+<h4 data-number="4.3.1" class="anchored" data-anchor-id="categoria-funcional-ivm7"><span class="header-section-number">4.3.1</span> Categoria funcional IVm7</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-27.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional IVm7, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>IVm7 é a categoria principal da subclasse Subdominante Menor (sd), tendo seu emprego característico como segundo elemento de “descidas plagais”. Isso fica evidente na forte presença de I (o terceiro elemento preferencial da fórmula) como principal continuação em nada menos do que sete <em>corpora</em> (além do próprio conjunto MPB). Em três destes (Jobim, Chico e Milton) I acumula ainda a propriedade <strong>alta</strong>, e no <em>corpus</em> Edu é, além disso, <strong>predominante</strong>. Embora menos comum a mudança de variante de tipo acordal nessa categoria (geralmente, na sequência Xm7|Xm6), ela apresenta-se como <strong>reflexiva</strong> em quatro <em>corpora</em>, sendo na posição <strong>forte</strong> em Lins.</p>
+</section>
+<section id="categoria-funcional-iv7" class="level4" data-number="4.3.2">
+<h4 data-number="4.3.2" class="anchored" data-anchor-id="categoria-funcional-iv7"><span class="header-section-number">4.3.2</span> Categoria funcional IV7</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-28.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional IV7, considerando os 10 <em>corpora</em> de análise e o conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Ainda que seja um “empréstimo” cromático do diatônico IV, o chamado “subdominante blues” (IV7) não integra a fórmula da “descida plagal”, ao contrário das suas categorias-irmãs IVm7 e #IVm7(b5). A despeito disso, sua continuação preferencial é o grau tônico, I, o que se observa em nove dos repertórios (e no conjunto MPB).<a href="#fn30" class="footnote-ref" id="fnref30" role="doc-noteref"><sup>30</sup></a> Como já apontado em outras avaliações no âmbito do projeto, os comportamentos de IV7 no que tange à entropia nos <em>corpora</em> Gil, Rita e Milton diferem consideravelmente em relação aos demais, devido às naturezas particulares das linguagens harmônicas praticadas por esses compositores. No caso de Gil e Rita, principalmente pela presença das estéticas blues/rock, enquanto em Milton isso se dá pelo tratamento modal (muitas vezes peculiar) que caracteriza sua música.</p>
+</section>
+<section id="categorias-funcionais-biim7-ivm7b5-vm7-bvim7-bvim7-e-bvii7" class="level4" data-number="4.3.3">
+<h4 data-number="4.3.3" class="anchored" data-anchor-id="categorias-funcionais-biim7-ivm7b5-vm7-bvim7-bvim7-e-bvii7"><span class="header-section-number">4.3.3</span> Categorias funcionais bIIM7, #IVm7(b5), Vm7, bVIM7, bVIm7 e bVII7</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/entro-29.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Entropia (em bits), número de continuações acima 1% e as três alternativas mais recorrentes referentes à categoria funcional #IVm7(b5), considerando suas distribuições no conjunto MPB. Barras cinza indicam continuações “reflexivas”.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Como observado nas avaliações acima, de IVm7 e IV7, I é a continuação preferencial desses empréstimos (em quatro dos seis casos). A principal divergência acontece com #IVm7(b5). Não por acaso, a categoria com a menor entropia desse grupo, tem como principal aplicação substituir IV na posição de Subdominante-estrutural, encabeçando variantes da “descida plagal”. Isso é evidenciado por sua continuação preferencial dentro do conjunto MPB, a saber, IVm7, apresentando-se como <strong>alta</strong>.</p>
+
+
+
+</section>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-almada-2024" class="csl-entry" role="listitem">
+Almada, Carlos. 2024. <span>«Função, expectativa e contexto na harmonia em música popular»</span>. <em>Musica Theorica</em> 9 (1).
+</div>
+<div id="ref-almada-zisels-2023" class="csl-entry" role="listitem">
+Almada, Carlos, e Pedro Zisels. 2023. <span>«O ritmo de ideias básicas de samba: uma abordagem sistemática»</span>. <em>Musica Theorica</em> 8 (1).
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notas de rodapé</h2>
+
+<ol>
+<li id="fn1"><p>Entenda-se um <em>evento</em> como uma generalização de um elemento simbólico em análise de entropia (ou seja, uma c-letra, uma r-letra ou uma categoria funcional).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Esse piso busca filtrar os resultados estatisticamente mais significativos e, ao mesmo tempo, evitar a pulverização da análise, com um grande número de observações.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>No caso do subdomínio das alturas, será mapeado o alfabeto Ac completo, pelo fato de possuir um número reduzido de símbolos, apenas sete.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Como se observa nos gráficos, movimentos escalares em sentido inverso são as principais continuações. Essa tendência se intensifica e se consolida nos saltos maiores (S/s), comoveremos a seguir.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Esse dado confirma a tradicional regra de manuais de contraponto que determina que um salto melódico deva ser compensado por grau conjunto na direção contrária.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Ambos os dados corroboram as conclusões já discutidas sobre a raridade, em geral, dos saltos frente a outros movimentos mais discretos na construção melódica da MPB. Ou seja, ao contrário dos passos escalares (especialmente o descendente), saltos <em>não</em> tendem a se perpetuar, o que é, aliás, consistente com a ideia de que provocam descontinuidades de linhas melódicas, quando ocorrem.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Curiosamente, passo ascendente (p) não é a continuação preferencial de nenhum repertório, ao contrário do que se esperaria com a aplicação da regra da compensação do salto, como se observa em <em>S</em>. Essa interessante assimetria entre as duas alternativas de salto (em relação às suas probabilidades de continuação) levanta uma questão bastante instigante em relação às construções melódicas que, por certo, merece ser investigada em estudos futuros.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>No total, abrangem cerca de 2/3 das ocorrências das r-letras no conjunto MPB.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Apenas em Lins <em>j</em> fica (por pouco) em segundo lugar, após <em>b</em>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>A sequência <ej> consiste numa fórmula de abertura de r-palavra muito comum em todos os repertórios.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></ej></p></li>
+<li id="fn11"><p>Ver <span class="citation" data-cites="almada-zisels-2023">Almada e Zisels (<a href="#ref-almada-zisels-2023" role="doc-biblioref">2023</a>)</span>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Dados que a tornam também <strong>inercial</strong>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>O que acontece também em Rita, considerando, nesse caso, a r-letra <em>j</em>.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Embora, a rigor, isso torne a categoria <strong>inercial</strong> em nossos critérios, pensamos que se trata aqui de uma inércia de uma natureza distinta daquela considerada nos domínios das alturas e do ritmo. mais “superficial”, por assim dizer, já que considera apenas as variantes de qualidades. Assim, optamos por não empregar a qualificação nesses casos.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>O que se dá, especialmente, pelas características mudanças de variantes do tipo acordal Y que resultam de caminhos internos – muitas vezes cromáticos – em linhas de tensões mantendo-se a mesma fundamental, como, por exemplo, em G4.7.9 | G7(b9) ou G7.13 | G7(b13).<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>É bastante interessante perceber essa constatação neste aspecto específico, que reforça a afinidade que existe entre esses repertórios, como já observado em outras avaliações da pesquisa.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>Para o conceito, ver <span class="citation" data-cites="almada-2024">Almada (<a href="#ref-almada-2024" role="doc-biblioref">2024</a>)</span><a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>Isso se deve em boa parte ao recurso do chamado “clichê cromático” em acordes de modo menor (por exemplo, Am | Am(M7) | Am7 | Am6 | Am(b6) | Am), que costuma ser aplicado, caracteristicamente, na categoria funcional VI.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>Certamente, essa ideia poderia ser estendida ao contexto dos diatônicos, como constatamos no caso de II (que “atrai” V) e, especialmente, V (que tende fortemente para I, em todos os repertórios). No entanto, é importante enfatizar que tais categorias são diatônicas, não tendo sido estabelecidas com intuito específico de preparar esses alvos, enquanto as categorias preparadoras (DS, SubV, DIM) são inerentemente cromáticas e “criadas” apenas para tornar os alvos mais esperados, o que se denota por suas próprias simbologias. Podemos, assim, ver as continuações de II e V como “atraídas” por tais categorias, mas como resultado de processos funcionais que, eventualmente, podem ser atenuados ou mesmo contraditos por condições contextuais e estilísticas.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p>Afinal, ambas as categorias têm como alvo pilares estruturais essenciais da funcionalidade tonal. Por outro lado, podemos lembrar que a frequência de ocorrência média de V é consideravelmente maior do que a de IV em todos os repertórios: enquanto a fórmula V/V | V é caracteristicamente encontrada em duas alternativas cadenciais – autêntica e semicadência – e que estas estão presentes na grande maioria das peças analisadas, o <em>locus</em> da sequência V/IV | IV (um dos gestos retóricos funcionais listados em <span class="citation" data-cites="almada-2024">Almada (<a href="#ref-almada-2024" role="doc-biblioref">2024</a>)</span>) é normalmente reservado para a preparação do ponto climático (o surgimento da <em>Subdominante-estrutural</em>), o que relativiza os seus respectivos pesos.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p>Em Djavan, como <strong>proeminente-alta</strong>.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn22"><p>Ver o capítulo sobre <a href="../capitulos/ng-especificos.html">N-gramas específicos</a> para maiores detalhes.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn23"><p>Esse <em>corpus</em> é o único no qual III não se encontra entre as três principais continuações, o que se deve, certamente, a uma baixa frequência de ocorrência.<a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn24"><p>Observe-se que algo semelhante ocorre em relação às continuações de V/VI (ver gráfico anterior), já que, nos termos aqui propostos, VI = “II/V”.<a href="#fnref24" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn25"><p>Ver capítulo <a href="../capitulos/ng-especificos.html">N-gramas específicos</a>.<a href="#fnref25" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn26"><p>O mesmo se aplica à próxima avaliação, considerando a subclasse DIM.<a href="#fnref26" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn27"><p>Com a exceção de III em relação a SubV/III, o que, no entanto, pode ser explicado pela sobreposição bifuncional, apontada acima (i.e., III = “II/II”).<a href="#fnref27" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn28"><p>Ver <span class="citation" data-cites="almada-2024">Almada (<a href="#ref-almada-2024" role="doc-biblioref">2024</a>)</span>.<a href="#fnref28" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn29"><p>A segunda inversão de I é normativa, permitindo o movimento cromático ascendente de baixo.<a href="#fnref29" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn30"><p>Apenas o <em>corpus</em> Lins diverge desse quadro, com a <strong>reflexão</strong> de IV7. O VI (como substituto diatônico de I) aparece como a segunda continuação mais provável.<a href="#fnref30" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/projetompb\.github\.io\/site-dev\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://projetompb.github.io/site/">Projeto MPB</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a>
+</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/entropia.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/entropia.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Página construída em <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

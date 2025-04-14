@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Aplicações composicionais – Projeto MPB dev</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7271f29f9498218151f3120baddb7363.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-97b9b0c4c0c4ea1c81d35afee23d1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "showHighlights": "never"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    document.querySelector('link.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Aplicações composicionais</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logos/logo-projeto.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://projetompb.github.io/site/" title="Projeto MPB" class="quarto-navigation-tool px-1" aria-label="Projeto MPB"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/ProjetoMPB/site" title="Projeto MPB (repositório)" class="quarto-navigation-tool px-1" aria-label="Projeto MPB (repositório)"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Página inicial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../blog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blog do projeto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Dados gerais</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introdução</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/nossa-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A “nossa” MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/estilo-musical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uma breve discussão sobre estilo musical</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/corpora-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Os <em>corpora</em> MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Modelos teóricos</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/harmonia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Harmonia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/melodia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Melodia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/notas-funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notas-funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/probabilidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probabilidade e entropia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Metodologia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-prim-sec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos primários e secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Material suplementar</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/cifragem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cifragem</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/tipos-acordais.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tipos acordais</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossário</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Resultados</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-primarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos primários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-secundarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Fase 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/n-grams.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">n-gramas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/ng-especificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">n-gramas específicos</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/listagem-corpora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Listagem dos <em>corpora</em></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/producao-bibliografica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Produção bibliográfica</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#algoritmos-compositores" id="toc-algoritmos-compositores" class="nav-link active" data-scroll-target="#algoritmos-compositores"><span class="header-section-number">0.1</span> ALGORITMOS-COMPOSITORES</a></li>
+  <li><a href="#estratégias-composicionais" id="toc-estratégias-composicionais" class="nav-link" data-scroll-target="#estratégias-composicionais"><span class="header-section-number">0.2</span> ESTRATÉGIAS COMPOSICIONAIS</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/composicoes.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/composicoes.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Aplicações composicionais</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Neste capítulo discutiremos uma das mais interessantes e promissoras ramificações do Projeto MPB: a composição assistida. Em termos bem sucintos, compor dentro sistema se dá através uma lógica em “engenharia reversa”, ou seja, tomando como base dados estatísticos compilados do processo de análise dos <em>corpora</em>. Importante frisar que não se trata de <em>composição algorítmica</em> (pelo menos em seu sentido mais conhecido), ou seja, um processo automatizado (ou semiautomatizado). Na verdade, poderíamos pensar que o sistema atuaria – em estágios específicos do processo composicional – apenas como um <em>fornecedor</em> de um espectro alternativas estatisticamente embasadas em relações a aspectos estruturais previamente mapeados (associados a alturas, ritmo e/ou harmonia) nas análises dos <em>corpora</em>. Assim, o(a) compositor(a) mantém sempre suas prerrogativas para tomar decisões e fazer o que entende como as melhores escolhas dentre as opções disponíveis a cada momento, conectando-las de modo lógico e criativo a uma estrutura imaginada para sua obra (o que não deixa de ser uma possível definição para o ato de compor).</p>
+<p>Em outros termos, a composição dentro desse sistema não é, de modo algum, regida pelo determinismo, já que encontra a cada etapa uma considerável margem de flexibilidade. Isso pode ser constatado nos três principais eixos musicais alimentados pelos dados analíticos, a saber, harmonia, melodia e ritmo, como se segue:</p>
+<p><strong>Flexibilidade harmônica</strong> – as sequências de acordes geradas pelo algoritmo-compositor específico (ver mais à frente) são desvinculadas de quaisquer referências a posições métricas e durações.</p>
+<p><strong>Flexibilidade melódica</strong> – as sequências de c-letras, ou seja, as <em>c-palavras</em> geradas pelo algoritmo-compositor específico (ver mais à frente) indicam apenas “gestos de contorno” básicos, que podem ser realizados de modos consideravelmente distintos.</p>
+<p><strong>Flexibilidade rítmica</strong> – as sequências de r-letras, ou seja, as <em>r-palavras</em> geradas pelo algoritmo-compositor específico (ver mais à frente) são “agnósticas” em relação à métrica, o que significa que devem ser consideradas como unidades autônomas que podem ser posicionadas metricamente a critério do(a) compositor(a). Isso inclui também a liberdade de poder distanciar livremente unidades contíguas.</p>
+<p><strong>Flexibilidade de conexões</strong> – as <em>c/r palavras</em> (isto é, a conjunção de c- e r-palavras) devem ser vistas como unidades autônomas, sem relações mútuas de conexão.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<hr>
+<section id="algoritmos-compositores" class="level3" data-number="0.1">
+<h3 data-number="0.1" class="anchored" data-anchor-id="algoritmos-compositores"><span class="header-section-number">0.1</span> ALGORITMOS-COMPOSITORES</h3>
+<p>Em sua versão atual, o processo composicional dentro do sistema é baseado em três algoritmos-compositores, cada qual associado a um domínio estrutural-musical, a saber, harmonia, ritmo e alturas. Os três algoritmos são alimentados por dados estatísticos referentes a transições entre eventos contíguos, registrados nas <em>matrizes de transição probabilística</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> dos 10 <em>corpora</em> analisados. De um modo geral, os algoritmos operam da seguinte maneira: o usuário informa o <em>corpus</em> de referência, o evento-semente (que, dependendo do domínio selecionado, pode ser uma categoria funcional, uma r-letra ou uma c-letra) e o número de iterações desejado. O algoritmo então retorna uma estrutura completa (uma sequência de acordes, uma r-palavra ou uma c-palavra) que guarda – ao menos em termos probabilísticos – estreitos vínculos com o <em>corpus</em> selecionado.</p>
+<p>Um simples exemplo ilustrará a lógica básica por trás do funcionamento dos três algoritmos. Considere uma matriz de transição probabilística com apenas quatro estados – w, x, y, z – e suas respectivas probabilidades de transição computadas (<a href="#fig-comp01" class="quarto-xref">Figura&nbsp;1</a>). Assumamos agora que desejamos gerar uma sequência de três símbolos a partir da “semente” y, através da lógica básica dos algoritmos-compositores. Isso significa que precisaremos aplicar duas iterações (já que a “semente” y será o primeiro símbolo da sequência). Na primeira iteração, o algoritmo faz um sorteio <em>ponderado</em> das probabilidades de transição referentes à linha “y”.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> A transição escolhida (“x” no exemplo) se torna a nova “semente” para uma reaplicação do algoritmo, que retorna desta vez “z”, completando a extensão previamente estabelecida de três símbolos para a sequência (evidentemente, o processo poderia se estender indefinidamente, a depender do número de iterações desejado).</p>
+<div id="fig-comp01" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-01.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Exemplo simplifficado da lógica dos algoritmos-compositores.
+</figcaption>
+</figure>
+</div>
+<p>Os algoritomos-compositores empregados no sistema são descritos sucintamente a seguir:</p>
+<ol type="1">
+<li><em>corporaKov2.py</em> – código implementado em linguagem Python, recebe como <em>input</em> informações sobre o <em>corpus</em> considerado, o “acorde-semente”<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> e o número de iterações desejado (ou seja, a extensão da sequência). O algoritmo retorna a sequência em três versões: (a) em categorias funcionais; (b) em cifras alfanuméricas e (c) em notação genealógica (ver glossário), como tipos acordais registrados no modelo GTA (ver capítulo sobre os modelos teóricos adotados no projeto). A <a href="#fig-comp02" class="quarto-xref">Figura&nbsp;2</a> apresenta o fluxograma referente ao algoritmo e um exemplo de sua aplicação.</li>
+</ol>
+<div id="fig-comp02" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-02.png" class="img-fluid figure-img" style="width:75.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Esquema básico do algoritmo <em>corparoKov2.py</em> e um exemplo.
+</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li><em>corporaKov_ritmo.py</em> – código implementado em linguagem Python, recebe como <em>input</em> informações sobre o <em>corpus</em> considerado, a “r-letra-semente” (análoga à ideia do “acorde-semente) e o número de iterações desejado (ou seja, a extensão da sequência em número de r-letras). O algoritmo retorna como <em>output</em> uma r-palavra original (e probabilisticamente vinculada ao <em>corpus</em> em questão), juntamente com sua <em>cardinalidade</em> # (neste caso, o número total de ataques da r-palavra). A <a href="#fig-comp03" class="quarto-xref">Figura&nbsp;3</a> apresenta o fluxograma referente ao algoritmo e um exemplo de sua aplicação.</li>
+</ol>
+<div id="fig-comp03" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-03.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Esquema básico do algoritmo <em>corparoKov_ritmo.py</em> e um exemplo.
+</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li><em>corporaKov_contorno.py</em> – código implementado em linguagem Python, recebe como <em>input</em> informações sobre o <em>corpus</em> considerado, a “c-letra-semente” e a cardinalidade (que deverá coerente à cardinalidade de uma r-palavra correspondente, previamente construída). A <a href="#fig-comp04" class="quarto-xref">Figura&nbsp;4</a> apresenta o fluxograma referente ao algoritmo e um exemplo de sua aplicação.</li>
+</ol>
+<div id="fig-comp04" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-04.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Esquema básico do algoritmo <em>corparoKov_contorno.py</em> e um exemplo.
+</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+<section id="estratégias-composicionais" class="level3" data-number="0.2">
+<h3 data-number="0.2" class="anchored" data-anchor-id="estratégias-composicionais"><span class="header-section-number">0.2</span> ESTRATÉGIAS COMPOSICIONAIS</h3>
+<p>Até o presente momento, duas estratégias de composição assistida dentro do sistema foram idealizadas, descritas sucintamente como se segue:</p>
+<p><strong>Estratégia 1</strong> – é a que mais se utiliza dos dados estatísticos analisados. Sua principal limitação é ausência de controle para construções de estruturas relativamente complexas. Assim, é idealmente empregada em composições aforísticas, ou seja de curta duração.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>Um possível protocolo composicional com essa estratégia é descrito a seguir (imaginamos que outras possibilidades possam ser eventualmente propostas):</p>
+<ol type="1">
+<li><p>Selecionar o <em>corpus</em> de interesse (seja, por exemplo, JOBIM).</p></li>
+<li><p>Determinar o número de c/r palavras que formará a peça a ser composta (consideremos, como uma breve ilustração, que a peça de nosso exemplo terá cinco c/r palavras).</p></li>
+<li><p>Usar o algoritmo-compositor <em>corporaKov_ritmo.py</em> para gerar (cinco, no caso do exemplo) r-palavras.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> A <a href="#fig-comp05" class="quarto-xref">Figura&nbsp;5</a> esquematiza a produção das cinco r-palavras, a partir da aplicação sequencial do algoritmo, considerando as r-letras {g, n, e, g, o} e os respectivos números de iterações {2, 1, 3, 2, 1}.</p></li>
+</ol>
+<div id="fig-comp05" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp05-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-05.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp05-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5: Exemplo de aplicação da Estratégia 1: geração de cinco r-palavras no <em>corpus</em> JOBIM.
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>“Montar” as r-palavras na sequência do processo gerativo, distanciando-as livremente, fornecendo assim uma espécie de “esqueleto” rítmico-métrico para a composição.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Em outros termos, as r-palavras devem ser vistas como blocos autônomos que podem ser posicionados metricamente a critério do usuário (sugere-se apenas evitar sobreposições ou elisões, de modo que a estrutura dos segmentos fique evidente). Obtem-se assim, em termos bem básicos, a estrutura formal da peça, cuja principal implicação é a definição do seu número de compassos. A <a href="#fig-comp06" class="quarto-xref">Figura&nbsp;6</a> propõe uma possível montagem das cinco r-palavras geradas no exemplo, resultando numa extensão total de sete compassos para a peça planejada.</li>
+</ol>
+<div id="fig-comp06" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp06-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-06.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp06-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6: Exemplo de aplicação da Estratégia 1: posicionamento métrico das cinco r-palavras.
+</figcaption>
+</figure>
+</div>
+<ol start="5" type="1">
+<li>Usar o algoritmo-compositor <em>corporaKov_contorno.py</em> para gerar c-palavras devidamente <em>compatíveis em cardinalidade</em> em relação às r-palavras previamente geradas (<a href="#fig-comp07" class="quarto-xref">Figura&nbsp;7</a>).<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> Como a estrutura métrica da peça foi definida na etapa (4), as c-palavras geradas se integram automaticamente àquelas, formando assim c/r palavras.</li>
+</ol>
+<div id="fig-comp07" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp07-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-07.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp07-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;7: Exemplo de aplicação da Estratégia 1: geração de cinco c-palavras no <em>corpus</em> JOBIM.
+</figcaption>
+</figure>
+</div>
+<ol start="6" type="1">
+<li><p>Definir o ritmo harmônico desejado para a peça, o que será dependente do número de compassos previamente estabelecido em (4). Consequentemente, o número de acordes da estrutura harmônica é definido. Por simplicidade, consideremos no nosso exemplo um acorde por compasso, totalizando assim sete.</p></li>
+<li><p>Usar o algoritmo-compositor <em>corporaKov2.py</em> para gerar a sequência de acordes (em seis iterações, no exemplo) que formará a estrutura harmônica da peça. Como nos outros casos, o usuário poderá fazer diversas tentativas até encontrar a sequência que mais lhe agrade. <a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> A <a href="#fig-comp08" class="quarto-xref">Figura&nbsp;8</a> apresenta uma sequência harmônica gerada e selecionada para a peça do exemplo.</p></li>
+</ol>
+<div id="fig-comp08" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp08-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-08.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp08-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8: Exemplo de aplicação da Estratégia 1: geração de uma sequência de cinco acordes no <em>corpus</em> JOBIM..
+</figcaption>
+</figure>
+</div>
+<ol start="8" type="1">
+<li>Tomando as c-letras de cada c/r palavra como guia e mantendo uma coerência com o(s) acorde(s) que a sustenta(m), definir as alturas da linha melódica. Uma das muitas alternativas possíveis é proposta na <a href="#fig-comp09" class="quarto-xref">Figura&nbsp;9</a>.</li>
+</ol>
+<div id="fig-comp09" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp09-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-09.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp09-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;9: Exemplo de aplicação da Estratégia 1: geração de uma possível linha melódica a partir dos dados pré-estabelecidos.
+</figcaption>
+</figure>
+</div>
+<ol start="9" type="1">
+<li>Fazer, se necessário, pequenos ajustes na melodia composta, tais como: substituição de pausas por notas sustentadas (ou vice-versa), incluir ornamentos (ou mesmo breves conexões melódicas), trocas de registros em c-palavras etc.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></li>
+</ol>
+<p>A estratégia 1 foi empregada pela primeira vez sistematicamente por Carlos Almada, em 2021, na composição de um ciclo de 14 pequenas peças para piano intitulado <em>Jobiniaturas</em>. Como o título sugere, a obra se referencia ao <em>corpus</em> Jobim (o primeiro a ser analisado no Projeto MPB). As 14 miniaturas evocam, cada qual à sua maneira, aspectos do universo jobiniano, na concepção particular de Almada. As peças alternam centros tonais (ou modais) maiores e menores, descrevendo uma trajetória escalar diatônica: Dó, Ré, Mi, Fá, Sol, Lá e Si.</p>
+<p>Um vídeo dessa obra, na interpretação da pianista Tamara Ujakova, encontra-se disponível <a href="https://www.youtube.com/watch?v=nhcpmUxKeKI">aqui</a>.</p>
+<hr>
+<p><strong>Estratégia 2</strong> – o “problema” da ausência de controle sobre a estrutura musical em alto nível foi recentemente equacionado com a idealização de uma segunda estratégia de composição assistida. Podendo também ser denominada uma “modelagem derivativa-estilística”, envolve, além dos processos markovianos da estratégia 1 (em menor escala, como veremos), uma concepção evolutiva-musical. Isso se dá a partir de uma adptação simplificada do Modelo de Análise Derivativa (MDA, na sigla em inglês), adaptação esta identificada pelo acrônimo MDA*.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> As bases dessa ideia são apresentadas a seguir.</p>
+<p><strong>Microtransformações parcimoniosas</strong> (MTP)</p>
+<p>O conceito de <em>microtransformação parcimoniosa</em> (doravante abreviado como MTP) pode ser definido como uma espécie de “edição” aplicada a um dos componentes de uma dada c- ou r-palavra, deixando os demais componentes inalterados. O prefixo “micro” se refere assim ao fato de que a transformação age no <em>interior</em> da palavra em questão e afeta um elemento isolado. Por outro lado, o adjetivo “parcimonioso” informa que a transformação operada é mínima, o que faz com que a palavra variante seja minimamente distinta da referencial. O sistema registra cerca de 20 MTPs (distribuídas pelos domínios das alturas e do ritmo), cujo detalhamente omitiremos neste capítulo.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> Para os presentes propósitos, basta apresentar sua ideia geral. A <a href="#fig-comp10" class="quarto-xref">Figura&nbsp;10</a> traz dois simples exemplos de MTPs.</p>
+<div id="fig-comp10" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-10.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;10: Exemplos de MTPs aplicadas em c-palavra (esquerda) e r-palavra (direita).
+</figcaption>
+</figure>
+</div>
+<p>Um algoritmo específico, intitulado <em>SeleArt.py</em>, aplica diversas MTPs a uma c- ou r-palavra referencial, produzindo variantes próximas (ou parcimoniosas). A ideia desse programa é fazer com que o usuário aja como um agricultor que seleciona a cada geração de sua criação animal/vegetal os espécimes mais vantajosos para seus propósitos (sabores, cores, tamanhos etc.). Em outros termos, o algoritmo busca replicar, no âmbito das c/r palavras, a lógica subjacente da <em>seleção artificial</em> biológica. Assim, a cada geração, o usuário/compositor seleciona a variante mais favorável (para seus propósitos, sejam eles quais forem), retendo-a para uma reaplicação do algoritmo, e assim por diante, criando assim verdadeiras linhagens “direcionadas” a algum objetivo composicional. A <a href="#fig-comp11" class="quarto-xref">Figura&nbsp;11</a> esquematiza o processo.</p>
+<div id="fig-comp11" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-11.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;11: Exemplos de MTPs aplicadas em c-palavra (esquerda) e r-palavra (direita).
+</figcaption>
+</figure>
+</div>
+<p>Como o que foi feito com a estratégia 1, protocolos podem ser ser também definidos. No entanto, dadas as características especiais da segunda estratégia, consideraremos duas fases: (a) modelagem da estrutura; (b) composição propriamente dita.</p>
+<p>O protocolo de modelagem considera a estrutura formal e as relações derivativas da melodia (englobando alturas e ritmo).<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> Envolve as seguintes etapas:</p>
+<ol type="1">
+<li><p>Selecionar o <em>corpus</em> de interesse.</p></li>
+<li><p>Selecionar uma peça desse <em>corpus</em> que se deseje modelar. Considere o trecho hipotético apresentado na <a href="#fig-comp12" class="quarto-xref">Figura&nbsp;12</a> como um exemplo.</p></li>
+</ol>
+<div id="fig-comp12" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-12.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp12-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;12: Exemplo hipotético de uma melodia-modelo.
+</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li>Segmentar o trecho selecionado de modo a estabelecer uma estrutura de c/r palavras (<a href="#fig-comp13" class="quarto-xref">Figura&nbsp;13</a>).</li>
+</ol>
+<div id="fig-comp13" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-13.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp13-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;13: Segmentação do exemplo da <a href="#fig-comp12" class="quarto-xref">Figura&nbsp;12</a>.
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>Codificar a melodia (alturas e ritmos) de acordo com o modelo de Filtragem Melódica,<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a> criando assim, respectivamente, uma c-palavra e uma r-palavra para cada segmento (<a href="#fig-comp14" class="quarto-xref">Figura&nbsp;14</a>).</li>
+</ol>
+<div id="fig-comp14" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-14.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp14-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;14: Codificação dos segmentos da <a href="#fig-comp13" class="quarto-xref">Figura&nbsp;13</a>, formando c/r palavras.
+</figcaption>
+</figure>
+</div>
+<ol start="5" type="1">
+<li>Com a definição das c/r palavras, mapear as replicações “fenotípicas” que por ventura existam na peça modelada. Nos termos da estratégia, isso significa identificar c/r palavras idênticas (considerando, claro, o nível das codificações realizadas). Ou seja, as unidades melódico-rítmicas são aqui tratadas como vinculadas em um todo homogêneo. A <a href="#fig-comp15" class="quarto-xref">Figura&nbsp;15</a> exemplifica como a análise das replicações é feita, considerando hipoteticamente as identidades entre as unidades 1/2 e 4/6.</li>
+</ol>
+<div id="fig-comp15" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-15.png" class="img-fluid figure-img" style="width:25.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp15-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;15: Exemplos hipotéticos de replicações “fenotípicas”.
+</figcaption>
+</figure>
+</div>
+<ol start="6" type="1">
+<li>Finalmente, considerar as c-palavras e r-palavras como unidades autônomas que, eventualmente, “evoluem” de maneiras independentes em relação a outras. Tomando como metáfora os fenômenos biológicos (assim como foi feito na etapa anterior), denominamos o mapeamento das transformações nesse nível de derivações “gênicas” (que eventualmente também indicarão replicações). A representação dessas relações se dá por intermédio de um esquema em árvore genealógica (uma para cada domínio, <em>c</em> e <em>r</em>), identificando as relações derivativas e replicativas. A <a href="#fig-comp16" class="quarto-xref">Figura&nbsp;16</a> apresenta um breve exemplo das duas árvores. Os números entre parênteses ao lado de cada seta indicam os números de “edições” necessárias para transformar uma dada palavra “pai” em seu “filho”.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a> Nesse sentido, a indicação (0) significa que não houve transformação, e sim replicação da c/r palavra referencial.</li>
+</ol>
+<div id="fig-comp16" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-16.png" class="img-fluid figure-img" style="width:40.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp16-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;16: Exemplos hipotéticos de relações “gênicas”.
+</figcaption>
+</figure>
+</div>
+<hr>
+<p>Concluída a primeira fase (modelagem), passa-se então à segunda, a composição assistida. O protocolo dessa fase consiste nas seguintes etapas:</p>
+<ol type="1">
+<li>Gerar uma r-palavra-semente – a unidade rítmica referencial para o processo composicional-derivativo – por intermédio do algoritmo-compositor <em>corporakov_ritmo.py</em>. O <em>corpus</em> de <em>input</em> deverá ser, evidentemente, o mesmo da obra selecionada para modelagem. O usuário pode escolher livremente o número de r-letras de sua palavra-semente, bem como descartar r-palavras produzidas pelo algoritmo que porventura não lhe convenham, até a obtenção de uma unidade ideal. Seja o exemplo da <a href="#fig-comp17" class="quarto-xref">Figura&nbsp;17</a>.</li>
+</ol>
+<div id="fig-comp17" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp17-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-17.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp17-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;17: Exemplo de geração de uma r-palavra referencial.
+</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li>Gerar, por intermédio do algoritmo-compositor <em>corporakov_contorno.py</em>, uma c-palavra correspondente à r-palavra-semente com a qual – importante destacar – deve compartilhar a cardinalidade, de maneira que ambas possam se integrar em uma unidade referencial “fenotípica”, que será numerada com “1”.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a> A <a href="#fig-comp18" class="quarto-xref">Figura&nbsp;18</a> propõe uma alternativa para o exemplo da <a href="#fig-comp17" class="quarto-xref">Figura&nbsp;17</a>, incluindo a acoplagem das duas palavras referenciais.</li>
+</ol>
+<div id="fig-comp18" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp18-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-18.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp18-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;18: Exemplo de geração de uma c-palavra referencial compatível com a r-palavra da <a href="#fig-comp17" class="quarto-xref">Figura&nbsp;17</a>, com a qual é acoplada, formando a “Grundgestalt” abstrata da peça a ser composta.
+</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li>Contextualizar metricamente a unidade referencial “1” (por exemplo, como mostra a <a href="#fig-comp19" class="quarto-xref">Figura&nbsp;19</a>).</li>
+</ol>
+<div id="fig-comp19" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp19-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-19.png" class="img-fluid figure-img" style="width:40.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp19-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;19: Exemplo de contextualização métrica da unidade “1”.
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>Gerar uma “progressão-semente”, ou seja, uma breve progressão (com dois a cinco acordes) de maneira a dar suporte harmônico para o trecho correspondente à unidade “1” e que também possa servir de base para a estrutura harmônica da peça a ser composta. Essa progressão deverá ser criada por intermédio do algoritmo-compositor <em>corporaKov2.py</em>, tomando como <em>input</em> o <em>corpus</em> ao qual pertence à peça modelada. A escolha do acorde-semente pelo usuário é, claro, livre. De modo semelhante ao que se observa nas etapas anteriores, a geração da progressão-semente poderá ocorrer após um número indefinido de tentativas, até que o resultado seja adequado às intenções composicionais. A <a href="#fig-comp20" class="quarto-xref">Figura&nbsp;20</a> ilustra essa etapa com um exemplo na qual uma progressão-semente com três acordes (duas iterações) iniciada por I é gerada, incluindo a contextualização métrica da progressão criada.</li>
+</ol>
+<div id="fig-comp20" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp20-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-20.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp20-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;20: Exemplo de geração de progressão-semente.
+</figcaption>
+</figure>
+</div>
+<ol start="5" type="1">
+<li>Construir uma linha melódica concreta para a unidade “1”, escolhendo notas que sejam coerentes com os respectivos acordes da progressão-semente e que obedeçam à sequência pré-estabelecidade c-letras. Um possível exemplo é apresentado na <a href="#fig-comp21" class="quarto-xref">Figura&nbsp;21</a>.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a></li>
+</ol>
+<div id="fig-comp21" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp21-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-21.png" class="img-fluid figure-img" style="width:40.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp21-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;21: Uma possível linha melódica para o exemplo da <a href="#fig-comp20" class="quarto-xref">Figura&nbsp;20</a>.
+</figcaption>
+</figure>
+</div>
+<ol start="6" type="1">
+<li>A partir daí, seguir linearmente com a composição das demais unidades. Esse processo deve ser guiado pelo mapa de derivações previamente estabelecido na primeira fase da estratégia, produzindo as devidas variações das r- e c-palavras do “pai” imediato (ou replicando-as, se for o caso). Após geradas a r-palavra e, em seguida, a c-palavra referente à unidade (seguindo o procedimento-padrão), ela deve ser metricamente contextualizada (como na etapa 2). O suário/compositor deve então, para harmonizar a nova unidade, escolher livremente uma progressão acordal para o segmento.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> Com base nessa harmonia, a unidade variante/replicante pode ser concretizada, com a construção da linha melódica específica, nos moldes do que é apresentado na etapa 5. Repetir o processo construtivo até o último segmento. A <a href="#fig-comp22" class="quarto-xref">Figura&nbsp;22</a> resume as instruções desta etapa, considerando informações hipotéticas.</li>
+</ol>
+<div id="fig-comp22" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-comp22-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../figs/composicao-22.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comp22-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;22: Resumo do processo composicional na estratégia 2 a partir da unidade referencial 1.
+</figcaption>
+</figure>
+</div>
+<hr>
+<p>Por ser ainda bastante recente, a estratégia composicional 2 foi aplicada apenas experimentalmente. A modelagem de duas canções (uma composta por Jobim e a outra por Ivan Lins e Vitor Martins) resultaram em duas pequenas peças (também em formato de canções, porém sem texto), compostas e arranjadas para piano por Carlos Almada.<a href="#fn19" class="footnote-ref" id="fnref19" role="doc-noteref"><sup>19</sup></a> A título de exemplificação, eis a versão digitalizada (mp3) da peça intitulada <em>O mar de Johanna</em> (que modelou <em>Joana dos barcos</em>, de Lins e Martins):</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" width="300" height="68" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title=""><source src="../audios/o-mar-de-johanna.mp3"></video></div>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-almada-mda" class="csl-entry" role="listitem">
+Almada, Carlos. 2023. <em>Musical Variation: Toward a Transformational Perspective</em>. Cham: Springer Verlag.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notas de rodapé</h2>
+
+<ol>
+<li id="fn1"><p>Isso significa que são irrelevantes tanto as distâncias temporais entre o último ataque de uma determinada c/r palavra e o primeiro da c/r palavra seguinte, quanto os intervalos melódicos entre esses dois pontos de articulação.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Ver capítulo sobre processos markovianos.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Isto é, os valores maiores de probabilidade terão maior “chance” de serem escolhidos do que os menores. Contudo, isso <em>não</em> significa que uma probabilidade maior <em>sempre</em> será selecionada. Eventualmente, “supresas” nesse sentido podem ocorrer, o que é saudável para os propósitos composicionais e evita o determinismo do processo, algo que seria bastante indesejável em termos musicais.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Ou seja, uma categoria funcional a partir da qual o usuário pretende construir uma sequência harmônica<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Recentente, a composição com essa estratégia foi usada como atividade de avaliação para os alunos de uma disciplina da grade do Pós-Graduação em Música da UFRJ, ministrada por Carlos Almada, Hugo Carvalho e Cecília Saraiva. Os resultados foram extremamente satisfatórios.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Vale aqui trazer uma observação importante: o usuário pode, claro, descartar as r-palavras que considerar inadequadas para sua peça e rodar o algoritmo quantas vezes forem necessárias, tendo em vista, claro, a qualidade do produto musical que se pretende criar. Ou seja, podemos acrescentar esta possibilidade às quatro flexibilizações acima apresentadas.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>O que inclui determinar a fórmula de compasso para a peça.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>A mesma observação feita em (3) sobre a seleção de resultados aplica-se aqui<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Uma possível alternativa a esta etapa (em caso de grandes sequências, com 10 ou mais acordes) poderia ser subdividir o número total de acordes a se gerar em segmentos de menor extensão – como “frases harmônicas” – de maneira a se ter mais controle sobre as relações de coerência e, assim, favorecer uma melhor adaptação da harmonia criada às intenções composicionais<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Uma etapa adicional – optativa, claro – poderia ser a criação de um arranjo (ou seja, uma <em>concretização</em>) da melodia harmonizada. Assim, a alternância de texturas diversas, a inclusão de linhas secundárias, de dinâmica, sinais de agógica e expressão etc. podem ser acionados em prol de um resultado esteticamente mais próximo de uma composição “convencional”.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Para descrições e maiores detalhes sobre MDA e MDA*, ver <span class="citation" data-cites="almada-mda">Almada (<a href="#ref-almada-mda" role="doc-biblioref">2023</a>)</span>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>Planeja-se para um futuro próximo a produção de um artigo com a descrição detalhada dessas operações.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>A modelagem da estrutura harmônica está atualmente em estudos e provavelmente será em breve implementada. Assim, provisoriamente, o tratamento da harmonia se processa na estratégia 2 de maneira consideravelmente mais livre do que na primeira estratégia composicional, como veremos.<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn14"><p>Ver capítulo sobre os modelos teóricos do projeto.<a href="#fnref14" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn15"><p>A partir, claro, de hipóteses estabelecidas por quem analisa.<a href="#fnref15" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn16"><p>Tal unidade pode ser aproximadamente associada à ideia de <em>Grundgestalt</em>, de Arnold Schoenberg. Para maiores detalhes sobre o conceito, ver, entre outras fontes, <span class="citation" data-cites="almada-mda">Almada (<a href="#ref-almada-mda" role="doc-biblioref">2023</a>)</span>.<a href="#fnref16" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn17"><p>Observe que, como as r-palavras definem apenas os pontos de ataque, a escolha por ligaduras ou pausas entre eles – como já foi enfatizado – é livre, a critério dos usuários/compositores.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn18"><p>Como já mencionado, um aperfeiçoamento desse processo – denominado <em>modelagem harmônica</em> – encontra-se en fase de desenvolvimento e irá substituir a prática atual.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn19"><p>Planeja-se formar um ciclo de 10 canções para piano, com peças modeladas provenientes de obras dos <em>corpora</em> analisados.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/projetompb\.github\.io\/site-dev\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://projetompb.github.io/site/">Projeto MPB</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a>
+</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/composicoes.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/composicoes.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Página construída em <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+<script>videojs(video_shortcode_videojs_video1);</script>
+
+
+
+
+</body></html>

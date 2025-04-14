@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Atributos primários e secundários de avaliação – descrição – Projeto MPB dev</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../capitulos/cifragem.html" rel="next">
+<link href="../capitulos/metodologia.html" rel="prev">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7271f29f9498218151f3120baddb7363.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-97b9b0c4c0c4ea1c81d35afee23d1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "showHighlights": "never"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    document.querySelector('link.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/intro.html">Dados gerais</a></li><li class="breadcrumb-item"><a href="../capitulos/atributos-prim-sec.html">Atributos primários e secundários</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logos/logo-projeto.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://projetompb.github.io/site/" title="Projeto MPB" class="quarto-navigation-tool px-1" aria-label="Projeto MPB"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/ProjetoMPB/site" title="Projeto MPB (repositório)" class="quarto-navigation-tool px-1" aria-label="Projeto MPB (repositório)"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Página inicial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../blog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blog do projeto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Dados gerais</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introdução</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/nossa-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A “nossa” MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/estilo-musical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uma breve discussão sobre estilo musical</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/corpora-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Os <em>corpora</em> MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Modelos teóricos</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/harmonia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Harmonia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/melodia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Melodia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/notas-funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notas-funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/probabilidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probabilidade e entropia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Metodologia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-prim-sec.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Atributos primários e secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Material suplementar</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/cifragem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cifragem</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/tipos-acordais.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tipos acordais</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossário</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Resultados</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-primarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos primários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-secundarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Fase 1</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/n-grams.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">n-gramas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/ng-especificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">n-gramas específicos</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/listagem-corpora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Listagem dos <em>corpora</em></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/producao-bibliografica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Produção bibliográfica</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">1</span> Introdução</a></li>
+  <li><a href="#critérios-de-nomenclatura-para-atributos-primários-e-secundários" id="toc-critérios-de-nomenclatura-para-atributos-primários-e-secundários" class="nav-link" data-scroll-target="#critérios-de-nomenclatura-para-atributos-primários-e-secundários"><span class="header-section-number">2</span> Critérios de nomenclatura para atributos primários e secundários</a></li>
+  <li><a href="#atributos-primários" id="toc-atributos-primários" class="nav-link" data-scroll-target="#atributos-primários"><span class="header-section-number">3</span> Atributos primários</a>
+  <ul class="collapse">
+  <li><a href="#atributos-primários-harmônicos" id="toc-atributos-primários-harmônicos" class="nav-link" data-scroll-target="#atributos-primários-harmônicos"><span class="header-section-number">3.1</span> Atributos primários harmônicos</a></li>
+  <li><a href="#atributos-primários-melódicos" id="toc-atributos-primários-melódicos" class="nav-link" data-scroll-target="#atributos-primários-melódicos"><span class="header-section-number">3.2</span> Atributos primários melódicos</a></li>
+  </ul></li>
+  <li><a href="#atributos-secundários" id="toc-atributos-secundários" class="nav-link" data-scroll-target="#atributos-secundários"><span class="header-section-number">4</span> Atributos secundários</a>
+  <ul class="collapse">
+  <li><a href="#atributos-secundários-harmônicos" id="toc-atributos-secundários-harmônicos" class="nav-link" data-scroll-target="#atributos-secundários-harmônicos"><span class="header-section-number">4.1</span> Atributos secundários harmônicos</a></li>
+  <li><a href="#atributos-secundários-melódicos" id="toc-atributos-secundários-melódicos" class="nav-link" data-scroll-target="#atributos-secundários-melódicos"><span class="header-section-number">4.2</span> Atributos secundários melódicos</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/atributos-prim-sec.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/atributos-prim-sec.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/intro.html">Dados gerais</a></li><li class="breadcrumb-item"><a href="../capitulos/atributos-prim-sec.html">Atributos primários e secundários</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Atributos primários e secundários de avaliação – descrição</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1</span> Introdução</h2>
+<p>Os atributos (e métricas) que adotamos para a avaliação das análises podem ter natureza quantitativa ou qualitativa, bem como podem ser associados a <em>marcadores estilísticos</em> (ver Capítulo sobre <a href="../capitulos/estilo-musical.html">Estilo Musical</a>).</p>
+<p>Buscando um refinamento, classificamos os atributos em três categorias básicas, <em>primários</em>, <em>secundários</em> e <em>terciários</em> (em desenvolvimento). As principais diferenças entre essas categorias se encontram nos seus respectivos graus de complexidade e detalhamento, bem como no quanto contribuem para evidenciar questões e demarcações estilísticas. Assim, enquanto os atributos secundários são <em>potenciais</em> definidores de estilo, os primários, ainda que importantes, não apresentam, tão marcadamente essa capacidade (apenas se vistos em conjunto). Na verdade, os atributos secundários, por assim dizer, “revisam” atributos primários a eles correspondentes, examinando-os de outras perspectivas, em geral mais amplas e, ao mesmo tempo, detalhadas. Podemos ainda considerar, de um modo um pouco mais livre, que os atributos secundários evidenciam os <em>contextos</em> nos quais os atributos primários se inserem. Por sua vez, atributos terciários podem ser vistos como uma espécie de sintonia fina dos secundários, tendo como principais características a natureza eminente quantitativa e o fato de considerarem todo o conjunto de cada um de seus atributos (enquanto os secundários envolvem mais seus aspectos qualitativos).</p>
+</section>
+<section id="critérios-de-nomenclatura-para-atributos-primários-e-secundários" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="critérios-de-nomenclatura-para-atributos-primários-e-secundários"><span class="header-section-number">2</span> Critérios de nomenclatura para atributos primários e secundários<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h2>
+<p>Os atributos primários e secundários são agrupadas internamente em relação aos <em>domínios</em> (harmonia e melodia),<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> a <em>níveis</em> de organização e a <em>aspectos</em> específicos desses níveis. Para uma rápida identificação, os aspectos são rotulados de acordo com a fórmula “mXnp”, onde <em>m</em> é o número que indica o nível do atributo – primário (m = 1) ou secundário (m = 2) –, <em>X</em> é a letra que representa o domínio considerado (H, para harmonia, M, para melodia), <em>n</em> é o número do nível em questão (n = 1, 2, 3 ou 4) e <em>p</em> é uma letra sequencial em caixa baixa identificadora do aspecto específico (p = a, b, c, d, …). Assim, por exemplo, o rótulo 1H3b corresponde a um atributo estilístico <em>primário</em> (1) vinculado ao domínio da <em>harmonia</em> (H) associado ao <em>terceiro nível</em> (3, que é referente aos tipos acordais), considerando o <em>segundo aspecto</em> (b, que se refere à categoria funcional mais recorrente dentro do <em>corpus</em> em análise).</p>
+</section>
+<section id="atributos-primários" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="atributos-primários"><span class="header-section-number">3</span> Atributos primários</h2>
+<p>Por hipótese, os atributos primários evidenciam especialmente (mas não apenas) elementos estruturais compartilhados por compositores pertencentes a um determinado superconjunto estilístico. Foram definidos 35 atributos primários, 19 associados ao domínio harmônico e 16 ao domínio melódico. São as seguintes suas descrições básicas:</p>
+<section id="atributos-primários-harmônicos" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="atributos-primários-harmônicos"><span class="header-section-number">3.1</span> Atributos primários harmônicos</h3>
+<p><strong>1H1</strong> – nível das tonalidades (contém cinco aspectos):</p>
+<ul>
+<li>1H1a – informa o número de tonalidades distintas empregadas dentro de cada <em>corpus</em> (bem como o percentual diante do total possível – 24), incluindo principais e secundárias (ou seja, aquelas obtidas por modulação interna).</li>
+<li>1H1b – identifica a tônica mais recorrente. Por convenção, maiúsculas indicam tonalidades maiores (DÓ, SOL etc.) e minúsculas as menores (ré, si♭ etc.). O atributo indica ainda o percentual de sua ocorrência.<br>
+</li>
+<li>1H1c – informa a distribuição percentual das tonalidades principais em modo maior.<br>
+</li>
+<li>1H1d – informa a distribuição percentual de peças monotônicas (em oposição às pluritônicas).<br>
+</li>
+<li>1H1e – identifica a relação binária tonal (RBT) mais recorrente, incluindo sua frequência percentual.</li>
+</ul>
+<hr>
+<p><strong>1H2</strong> – nível das funções (contém dois aspectos):</p>
+<ul>
+<li>1H2a – identifica a categoria funcional mais recorrente, incluindo sua distribuição percentual.<br>
+</li>
+<li>1H2b – identifica a relação binária funcional (RBF) mais recorrente, incluindo sua distribuição percentual.</li>
+</ul>
+<hr>
+<p><strong>1H3</strong> – nível dos tipos acordais (contém três aspectos):</p>
+<ul>
+<li>1H3a – informa o <em>genus</em> de tipos acordais mais recorrente, incluindo sua distribuição percentual.<br>
+</li>
+<li>1H3b – identifica o tipo acordal mais recorrente, incluindo sua distribuição percentual.<br>
+</li>
+<li>1H3c – identifica a relação binária abstrata (RBA) mais recorrente, incluindo sua distribuição percentual.</li>
+</ul>
+<hr>
+<p><strong>1H4</strong> – nível dos acordes específicos (contém quatro aspectos):</p>
+<ul>
+<li>1H4a – informa a distribuição percentual de acordes em estado fundamental (em relação aos invertidos).</li>
+<li>1H4b – informa o número de acordes específicos distintos empregados.<br>
+</li>
+<li>1H4c – identifica o acorde específico mais recorrente, incluindo sua distribuição percentual.<br>
+</li>
+<li>1H4d – identifica o movimento intervalar de baixos mais recorrente entre acordes contíguos, incluindo sua distribuição percentual.</li>
+</ul>
+<hr>
+</section>
+<section id="atributos-primários-melódicos" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="atributos-primários-melódicos"><span class="header-section-number">3.2</span> Atributos primários melódicos</h3>
+<p><strong>1M1</strong> – nível das notas-funções (contém quatro aspectos):</p>
+<ul>
+<li>1M1a – identifica o grau escalar mais recorrente, considerando os modos maior e menor, informando seus percentuais em relação ao total de casos.</li>
+<li>1M1b – identifica a categoria de nota-função mais recorrente (neste caso, englobando ambos os modos), informando sua distribuição percentual.<br>
+</li>
+<li>1M1c – identifica a nota-estrutural mais recorrente (englobando ambos os modos), informando sua distribuição percentual.<br>
+</li>
+<li>1M1d – informa o índice de ancoragem (ia) médio do <em>corpus</em>.</li>
+</ul>
+<hr>
+<p><strong>1M2</strong> – nível do contorno melódico (contém cinco aspectos):</p>
+<ul>
+<li>1M2a – identifica a c-letra mais recorrente, informando sua distribuição percentual.<br>
+</li>
+<li>1M2b – identifica a c-palavra mais recorrente, informando sua distribuição percentual.</li>
+<li>1M2c – identifica a cardinalidade de c/r palavra mais recorrente, informando sua distribuição percentual.<br>
+</li>
+<li>1M2d – informa o índice de economia intervalar (iE) médio do <em>corpus</em>. .</li>
+<li>1M2e – informa o índice de economia intervalar compensada (iEc) médio do <em>corpus</em>. .</li>
+</ul>
+<hr>
+<p><strong>1M3</strong> – nível do ritmo (contém quatro aspectos):</p>
+<ul>
+<li>1M3a – identifica o ponto de ataque mais recorrente do perfil métrico, informando sua distribuição percentual.<br>
+</li>
+<li>1M3b – identifica a r-letra mais recorrente, informando sua distribuição percentual.</li>
+<li>1M3c – identifica a r-palavra mais recorrente, informando sua distribuição percentual.<br>
+</li>
+<li>1M3d – informa o índice de contrametricidade (ic) médio do <em>corpus</em>.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="atributos-secundários" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="atributos-secundários"><span class="header-section-number">4</span> Atributos secundários</h2>
+<p>Os atributos secundários são essencialmente revisões (ou detalhamentos) de alguns atributos primários, de maneira a permitir a evidenciação de características peculiares de um(a) determinado(a) compositor(a) (ou de um pequeno grupo de compositores) em relação a um contexto estilístico mais amplo. Exposto de outro modo, enquanto atributos primários tendem a agrupar <em>corpora</em> (e os estilos composicionais a eles associados) formando superconjuntos, os secundários agem principalmente na segregação desses subconjuntos, tendendo a promover fronteiras estilísticas entre compositores. Além dessa diferença, ao contrário do que acontece com os primários, os atributos secundários geralmente são vinculados a hipóteses, a partir de conhecimentos informais pré-existentes.</p>
+<section id="atributos-secundários-harmônicos" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="atributos-secundários-harmônicos"><span class="header-section-number">4.1</span> Atributos secundários harmônicos</h3>
+<p><strong>2H1</strong> – nível das relações tonais (contém três aspectos):</p>
+<ul>
+<li><p>2H1a – informa a quantidade de relações binárias tonais (RBTs) distintas em cada <em>corpus</em>. A princípio, não é associado objetivamente a uma hipótese, tendo em vista que uma diversidade de RBTs não implica necessariamente maior complexidade. Os próximos atributos atuam nesse sentido, na busca de qualificar os tipos de relações e apresentar hipóteses mais consistentes.</p></li>
+<li><p>2H1b – compara a distribuição das relações binárias tonais da superclasse “notáveis” com o restante do universo. Por hipótese, RBTs “não notáveis” são mais empregadas no contexto estilístico da MPB do que as “notáveis”. Assim, uma predominância de RBTs “notáveis” em um determinado <em>corpus</em> tenderia, potencialmente, a “afastá-lo” do subconjunto-alvo.</p></li>
+<li><p>2H1c – examina em maiores detalhes os conteúdos das superclasses, considerando a distribuição de sete classes de RBTs, as “notáveis” HOM, REL, D/SD e as “não notáveis” MED, QUA, STM, TOM, TRI. Por hipótese, a predominância da classe MED é um indicativo de pertencimento ao subconjunto-alvo, ou seja, um <em>marcador estilístico centrípeto</em> (ver <a href="../capitulos/estilo-musical.html">capítulo sobre estilo musical</a>).</p></li>
+</ul>
+<hr>
+<p><strong>2H2</strong> – nível dos tipos acordais (contém quatro aspectos):</p>
+<ul>
+<li><p>2H2a – informa a quantidade de tipos acordais (TAs) distintos em cada <em>corpus</em>, bem como seu percentual em relação ao total, de acordo com o modelo GTA (ver <a href="modelos-teoricos.qmd">capítulo sobre os modelos teóricos</a>). Por hipótese, a diversidade de TAs seria um possível marcador centrípeto (também em relação ao subconjunto JAZZ).</p></li>
+<li><p>2H2b – compara a distribuição dos conteúdos dos 10 <em>genera</em> de tipos acordais. Por hipótese, uma alta recorrência dos <em>genera</em> triádicos V, v em relação aos demais se torna um marcador estilístico <em>centrífugo</em>. Inversamente, uma distribuição mais significativa dos <em>genera</em> Z, z (independentemente dos demais) indicaria um marcador centrípeto. No entanto, este aspecto também seria característico do subconjunto JAZZ, demandando observações complementares para o refinamento da análise.</p></li>
+<li><p>2H2c – compara as distribuições relativas de protoacordes e variantes acordais, agrupados. Por hipótese, o estilo MPB se caracteriza por uma significativa presença de tipos acordais variantes, em relação aos protoacordes, o que não se observaria tão intensamente no subconjunto JAZZ, constituindo , portanto, um possível fator diferenciador entre os dois contextos.</p></li>
+<li><p>2H2d – refina o atributo 2H2c, diferenciando protoacordes e variantes de acordo com os respectivos <em>genera</em>.</p></li>
+</ul>
+<hr>
+<p><strong>2H3</strong> – nível das funções (contém cinco aspectos):</p>
+<ul>
+<li><p>2H3a – informa a quantidade de categorias funcionais distintas em cada <em>corpus</em> e o respectivo percentual considerando o total de categorias adotadas (73). Por hipótese, a diversidade de categorias seria um marcador estilístico centrípeto (também em relação ao subconjunto JAZZ).</p></li>
+<li><p>2H3b – compara a distribuição de 12 classes (e/ou subclasses) mais significativas de categorias funcionais, a saber, DIA, DS, SubV, DIM, D-pte, EC1 e EC2.</p></li>
+<li><p>2H3c – refina o atributo 2H3b, examinando os conteúdos de cada classe, em separado.</p></li>
+<li><p>2H3d – compara as classes de relações binárias funcionais, ou RBFs de alto-nível (DIA|DIA, CR|DIA, DIA|CR, CR|CR). Por hipótese, integrantes do subconjunto-alvo e do subconjunto JAZZ apresentariam distribuições significativas das classes que envolvam a categoria CR. A separação dos dois subconjuntos neste atributo requererá, por certo, exames e discussões suplementares.</p></li>
+<li><p>2H3e – dispõe a distribuição das relações binárias funcionais de alto nível (considerando as classes de RBFs <a href="modelos-teoricos.qmd">ver capítulo dos Modelos Teóricos</a>.</p></li>
+</ul>
+<hr>
+</section>
+<section id="atributos-secundários-melódicos" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="atributos-secundários-melódicos"><span class="header-section-number">4.2</span> Atributos secundários melódicos</h3>
+<p><strong>2M1</strong> – nível das notas-funções (contém quatro aspectos):</p>
+<ul>
+<li><p>2M1a – informa a distribuição das notas diatônicas em cada <em>corpus</em>, considerando os modos maior e menor. Não há hipóteses previamente associadas a este atributo.</p></li>
+<li><p>2M1b – informa a distribuição das inflexões melódicas em relação às notas-estruturais. Não há hipóteses previamente associadas a este atributo.</p></li>
+<li><p>2M1c – compara as distribuições das superclasses de notas-estruturais (básicas <span class="math inline">\(\times\)</span> tensões). Por hipótese, a presença significativa de tensões é um forte marcador centrípeto para os subconjuntos MPB e JAZZ.</p></li>
+<li><p>2M1d – detalha o atributo 2M1c, considerando as classes de notas-estruturais (tríade, tétrade, tensões simples e tensões alteradas). Por hipótese, melodias do subconjunto-alvo apoiam-se, em média, mais em tensões do que aquelas provenientes do subconjunto JAZZ e, significativamente, mais ainda do que as do superconjunto.</p></li>
+</ul>
+<hr>
+<p><strong>2M2</strong> – nível das alturas (contém dois aspectos):</p>
+<ul>
+<li><p>2M2a – compara as distribuições das classes básicas de c-letras (u, P/p, A/a, S/s) em cada <em>corpus</em>. Não há hipóteses previamente associadas a este atributo.</p></li>
+<li><p>2M2b – detalha o atributo 2M2a, comparando as distribuições das c-letras em cada <em>corpus</em>. Não há hipóteses previamente associadas a este atributo.</p></li>
+</ul>
+<hr>
+<p><strong>2M3</strong> – nível do ritmo (contém três aspectos):</p>
+<ul>
+<li><p>2M3a – compara as distribuições dos perfis métricos dos <em>corpora</em>. Por hipótese, membros do subconjunto-alvo (especialmente aqueles que apresentam, em maior ou menor medida, influências do gênero SAMBA) se diferenciarão dos membros do subconjunto JAZZ por ocorrências de ataques mais significativa nos pontos 4 e 10.</p></li>
+<li><p>2M3b – informa as distribuições de r-letras <em>contramétricas</em> (c, e, g, m, n, p, u) em cada <em>corpus</em>, incluindo sua presença percentual em relação ao todo das r-letras. Por hipótese, membros do subconjunto-alvo (especialmente aqueles que apresentam, em maior ou menor medida, influências do gênero SAMBA) se diferenciarão dos membros do subconjunto JAZZ pela massiva ococrrência de r-letras contramétricas.</p></li>
+<li><p>2M3c – informa as distribuições de r-letras “tercinais” (d, f, i, k, o, s) em cada <em>corpus</em>, incluindo sua presença percentual em relação ao todo das r-letras. Não há hipóteses previamente associadas a este atributo.</p></li>
+</ul>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notas de rodapé</h2>
+
+<ol>
+<li id="fn1"><p>Os atributos terciários são identificados com uma simbologia distinta.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>O domínio melódico, por sua vez, subdivide-se em subdomínios: notas-funções, alturas e ritmo.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/projetompb\.github\.io\/site-dev\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../capitulos/metodologia.html" class="pagination-link" aria-label="Metodologia">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Metodologia</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../capitulos/cifragem.html" class="pagination-link" aria-label="Cifragem">
+        <span class="nav-page-text">Cifragem</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://projetompb.github.io/site/">Projeto MPB</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a>
+</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/atributos-prim-sec.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/atributos-prim-sec.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Página construída em <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

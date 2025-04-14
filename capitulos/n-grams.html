@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>N-gramas – Projeto MPB dev</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../capitulos/ng-especificos.html" rel="next">
+<link href="../capitulos/atributos-secundarios.html" rel="prev">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7271f29f9498218151f3120baddb7363.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-97b9b0c4c0c4ea1c81d35afee23d1392.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e65c93da6f3a63c085aa5d3714e230c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "showHighlights": "never"
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    window.setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      window.setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    window.hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(darkModeDefault) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const darkModeDefault = false;
+    document.querySelector('link.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !window.hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+    };
+    // Switch to dark mode if need be
+    if (window.hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/atributos-primarios.html">Resultados</a></li><li class="breadcrumb-item"><a href="../capitulos/n-grams.html">Fase 1</a></li><li class="breadcrumb-item"><a href="../capitulos/n-grams.html">n-gramas</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logos/logo-projeto.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://projetompb.github.io/site/" title="Projeto MPB" class="quarto-navigation-tool px-1" aria-label="Projeto MPB"><i class="bi bi-globe"></i></a>
+    <a href="https://github.com/ProjetoMPB/site" title="Projeto MPB (repositório)" class="quarto-navigation-tool px-1" aria-label="Projeto MPB (repositório)"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Página inicial</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../blog.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Blog do projeto</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Dados gerais</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introdução</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/nossa-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A “nossa” MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/estilo-musical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Uma breve discussão sobre estilo musical</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/corpora-mpb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Os <em>corpora</em> MPB</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Modelos teóricos</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/harmonia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Harmonia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/melodia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Melodia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/notas-funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Notas-funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/probabilidade.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Probabilidade e entropia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/metodologia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Metodologia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-prim-sec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos primários e secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Material suplementar</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/cifragem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cifragem</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/funcoes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Funções</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/tipos-acordais.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tipos acordais</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossário</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Resultados</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-primarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos primários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/atributos-secundarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Atributos secundários</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fase 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/n-grams.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">n-gramas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/ng-especificos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">n-gramas específicos</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/listagem-corpora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Listagem dos <em>corpora</em></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../capitulos/producao-bibliografica.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Produção bibliográfica</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução"><span class="header-section-number">1</span> Introdução</a></li>
+  <li><a href="#n-gramas-no-domínio-da-harmonia" id="toc-n-gramas-no-domínio-da-harmonia" class="nav-link" data-scroll-target="#n-gramas-no-domínio-da-harmonia"><span class="header-section-number">2</span> N-gramas no domínio da harmonia</a>
+  <ul class="collapse">
+  <li><a href="#gráficos" id="toc-gráficos" class="nav-link" data-scroll-target="#gráficos"><span class="header-section-number">2.1</span> Gráficos</a></li>
+  </ul></li>
+  <li><a href="#n-gramas-no-subdomínio-do-ritmo" id="toc-n-gramas-no-subdomínio-do-ritmo" class="nav-link" data-scroll-target="#n-gramas-no-subdomínio-do-ritmo"><span class="header-section-number">3</span> N-gramas no subdomínio do ritmo</a>
+  <ul class="collapse">
+  <li><a href="#nível-das-r-letras" id="toc-nível-das-r-letras" class="nav-link" data-scroll-target="#nível-das-r-letras"><span class="header-section-number">3.1</span> Nível das r-letras</a></li>
+  <li><a href="#nível-das-r-palavras" id="toc-nível-das-r-palavras" class="nav-link" data-scroll-target="#nível-das-r-palavras"><span class="header-section-number">3.2</span> Nível das r-palavras</a></li>
+  </ul></li>
+  <li><a href="#n-gramas-no-subdomínio-das-alturas" id="toc-n-gramas-no-subdomínio-das-alturas" class="nav-link" data-scroll-target="#n-gramas-no-subdomínio-das-alturas"><span class="header-section-number">4</span> N-gramas no subdomínio das alturas</a>
+  <ul class="collapse">
+  <li><a href="#nível-das-c-letras" id="toc-nível-das-c-letras" class="nav-link" data-scroll-target="#nível-das-c-letras"><span class="header-section-number">4.1</span> Nível das c-letras</a></li>
+  <li><a href="#nível-das-c-palavras" id="toc-nível-das-c-palavras" class="nav-link" data-scroll-target="#nível-das-c-palavras"><span class="header-section-number">4.2</span> Nível das c-palavras</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/n-grams.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/n-grams.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../capitulos/atributos-primarios.html">Resultados</a></li><li class="breadcrumb-item"><a href="../capitulos/n-grams.html">Fase 1</a></li><li class="breadcrumb-item"><a href="../capitulos/n-grams.html">n-gramas</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">N-gramas</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introdução" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="introdução"><span class="header-section-number">1</span> Introdução</h2>
+<p><em>N-gramas</em> (ou <em>n-grams</em> em sua versão original, em inglês) podem ser basicamente definidos como sequências contíguas de <em>n</em> itens. Tal conceito pode ser aplicado a qualquer sequência de símbolos, como acontece em textos (a aplicação original), mas também em outros tipos de informação simbólica notada sequencialmente, como se observa em sequenciação de aminoácidos (em biologia computacional) ou em música, o que se associa diretamente a nossos interesses.</p>
+<p>O conceito de n-gramas tem suas origens na teoria da probabilidade e na linguística computacional, remontando – assim como a ideia de <em>entropia</em> (ver capítulo <a href="../capitulos/probabilidade.html">Probabilidade e entropia</a>) – às primeiras formulações de Claude Shannon na década de 1940 sobre Teoria da Informação, a partir de uma intenção de quantificar a redundância em sequências de símbolos em textos. Na década de 1950 e 1960, com o surgimento da linguística computacional, os n-gramas foram empregados para modelar a linguagem natural, o que foi principalmente aperfeiçoado pelo trabalho de George Kingsley Zipf,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> que observou padrões na frequência das palavras em textos em inúmeros livros, independentemente de época ou de idioma em que foram escritos.</p>
+<p>No contexto do Projeto MPB, com o intuito de trazer mais luzes para as preferências estilísitcas, n-gramas podem ser aplicados a diversas estruturas. Destacamos especialmente três delas para exames, cada qual associada a um domínio/subdomínio: c-letras e c-palavras (alturas), r-letras e r-palavras (ritmo) e categrias funcionais (harmonia). A bem da verdade, alguns dos levantamentos com n-gramas correspondem a atributos já avaliados, como é o caso da distribuição de c-letras (1-grama); a distribuição de r-letras (1-grama); a distribuição de categorias funcionais (1-grama) e das RBFs (2-grama). A despeito desse fato, consideramos que trazer novamente tais avaliações e combiná-las a outras ainda não efetuadas (3-gramas e, especialmente, 4-gramas) é não apenas justificável (em nome da consistência e da presente nomenclatura), mas de grande utilidade para nossos propósitos de definição estilística, por permitir reunir as comparações entre os <em>corpora</em> em um único grupo.</p>
+</section>
+<section id="n-gramas-no-domínio-da-harmonia" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="n-gramas-no-domínio-da-harmonia"><span class="header-section-number">2</span> N-gramas no domínio da harmonia</h2>
+<p>O quadro abaixo apresenta dados sobre os n-gramas (<em>n</em> entre 1 e 4)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> referentes às sequências de categorias funcionais em todos os 13 <em>corpora</em> (controle e análise), incluindo o conjunto MPB (que engloba os <em>corpora</em> de análise). Nesse quadro são apresentados, em cada nível, o n-grama mais recorrente do <em>corpus</em> em questão, seu percentual e o total de n-gramas encontrados.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-01.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>N-gramas (1 a 4) referentes a categorias funcionais nos <em>corpora</em> de controle, de análise e no conjunto MPB.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Embora exista sejam preponderantes como únicas alternativas para todos os 14 <em>corpora</em> os 1-gramas (I) e nos 2-gramas (V|I), torna-se interessante observar as distribuições percentuais em que isso acontece. Assim, Chico, Djavan e Jobim (nesta ordem) são, juntamente com o controle Jazz, os repertórios nos quais há relativamente menor peso de I como 1-grama (entre 18 e 20%). No extremo oposto se encontra o <em>corpus</em> Milton, no qual I corresponde a 35% de seus 1-gramas, percentual que evidencia o caráter predominantemente modal da música desse compositor. Por outro lado, o 2-grama V|I apresenta valores menores do que a média nesse mesmo <em>corpus</em>, o que também é consistente com uma lógica eminentemente modal. De um modo geral, os repertórios MPB apresentam percentuais baixos para essa sequência. Nos controles Choro e, principalmente, Samba (22%) V|I tem consideravelmente maior peso. Quanto aos 3-gramas, nove dos repertórios apresentam como principal a sequência II|V|I. Em três casos, a preferência recai sobre I|V|I. Apenas dois outros são distintos e envolvem acordes não diatônicos: a sequência cadencial V/II|V/V|V (Djavan) e I|IV7|I (Rita Lee), que evoca uma lógica de <em>rhythm and blues</em>, bem recorrente na música da compositora. Como se esperaria, a divergência de opções (e a redução dos percentuais) se acentuam nas sequências 4-gramas, o que não permite conclusões significativas.</p>
+<section id="gráficos" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="gráficos"><span class="header-section-number">2.1</span> Gráficos</h3>
+<p>Considerando que as sequências 1-grama e 2-grama já foram expostas graficamente, denominadas, respectivamente, “Distribuição de categorias funcionais” e “Distribuição de RBFs” (ver o <a href="../capitulos/graficos.html">capítulo Gráficos</a>), seguem-se abaixo os gráficos referentes aos 30 mais recorrentes 3-gramas e 4-gramas associados às r-letras nos diferentes <em>corpora</em>.</p>
+<p>3-GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de categorias no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-02.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 3-gramas referentes a sequências de categorias funcionais nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+<hr>
+<p>4-GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de categorias no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-03.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 4-gramas referentes a sequências de categorias funcionais nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="n-gramas-no-subdomínio-do-ritmo" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="n-gramas-no-subdomínio-do-ritmo"><span class="header-section-number">3</span> N-gramas no subdomínio do ritmo</h2>
+<section id="nível-das-r-letras" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="nível-das-r-letras"><span class="header-section-number">3.1</span> Nível das r-letras</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-04.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>N-gramas (1 a 4) referentes a r-letras nos <em>corpora</em> de controle, de análise e no conjunto MPB.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Com a exceção dos controles Choro (preferência pela r-letra <em>v</em>) e Samba (<em>n</em>), os demais <em>corpora</em> dividem-se em dois grupos: um no qual predomina o 1-grama <em>b</em>, o ataque tético isolado (Jobim, Lins, Lobo, Djavan, Bosco e Milton) e o outro com preferência sobre o 1-grama <em>j</em>, correspondendo ao par de colcheias (Jazz, Chico, Caetano, Gil e Rita). Como acontece com as categorias funcionais, um aspecto adicional a se observar em futuras avaliações compreende as diferenças percentuais, associadas aos totais envolvidos. Nesse sentido, chama especial atenção a destacada proeminência de <em>j</em> no <em>corpus</em> Rita (42.5%), denotando uma maior consistência rítmica nas linhas melódicas desse repertório (ou menor diversidade, alternativamente). Em polo oposto se encontra o caso do <em>corpus</em> Bosco, no qual <em>b</em> é o principal 1-grama, com apenas 16.7%.</p>
+<p>Um fenômeno bastante interessante surge quando observamos 2-gramas, a saber, uma tendência quase unânime de replicação da r-letra prévia.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Nesse sentido, os vários repertórios parecem agora convergir para uma sequência predominante (<em>jj</em>, em sete dos 13 <em>corpora</em> – oito, se considerarmos o conjunto MPB.), deixando mais afastado o segundo grupo, que duplica a r-letra <em>b</em> (três casos). Choro (<em>vv</em>) e Samba (<em>nn</em>) duplicam seus respectivos 1-gramas, com Jobim se tornando o único <em>corpus</em> sem duplicações nessa cardinalidade (<em>jb</em>).<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
+<p>A tendência de replicação de r-letras se mantém quase inalterada nos 3-gramas: todas as oito sequências <em>jj</em> se tornam <em>jjj</em>, assim como acontece nos controles Choro (<em>vvv</em>) e Samba (<em>nnn</em>). Há ainda dois casos de triplicação <em>bbb</em> (Jazz e Milton), com apenas Jobim e Lins divergindo desse quadro.</p>
+<p>Embora atenuada nos 4-gramas, a tendência de replicação ainda se apresenta em sete dos 13 <em>corpora</em>: como <em>jjjj</em> (Lobo, Gil e Rita),<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> <em>bbbb</em> (Jazz, Djavan e Milton) e <em>nnnn</em> (Samba), com sequências mescladas em Jobim, Lins, Caetano, Bosco e Choro.</p>
+<p>Como uma reflexão sobre a tendência de replicação, que se apresenta de forma tão intensa e consistente nesses n-gramas, embora seja ainda num nível da especulação, acreditamos que ela possa talvez ser associada a um princípio construtivo que levaria os compositores, intuitivamente, a preferir configurações que privilegiassem consistência e economia motívica, num sentido oposto ao de uma maior diversidade rítmica. Evidentemente, tais considerações se apresentam apenas como uma hipótese inicial que carecem, portanto, de estudos complementares para uma adequada avaliação.</p>
+<section id="gráficos-1" class="level4" data-number="3.1.1">
+<h4 data-number="3.1.1" class="anchored" data-anchor-id="gráficos-1"><span class="header-section-number">3.1.1</span> Gráficos</h4>
+<p>Os gráficos das sequências de r-letras abrangem 2- 3- e 4-gramas (para 1-grama, ver a “Distribuição de r-letras” no <a href="../capitulos/graficos.html">capítulo Gráficos</a>).</p>
+<p>2-GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de r-letras no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-05.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 2-gramas referentes a sequências de r-letras nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+<p>3-GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de r-letras no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-06.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 3-gramas referentes a sequências de r-letras nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+<p>4 GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de r-letras no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-07.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 4-gramas referentes a sequências de r-letras nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="nível-das-r-palavras" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="nível-das-r-palavras"><span class="header-section-number">3.2</span> Nível das r-palavras</h3>
+<p>N-gramas rítmicos também podem ser observados em um nível superior ao das r-letras, ou seja, envolvendo sequências de r-palavras. Em termos práticos, consideramos que interessa apenas observar sequências desse tipo que abranjam dois elementos, já que cardinalidades implicam considerável aumento de dispersão de alternativas. O quadro abaixo resume os mais recorrentes 2-gramas de r-palavras nos <em>corpora</em>, informando percentuais e o total de casos observados.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-08.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>2-gramas referentes a sequências de r-palavras nos <em>corpora</em> de controle, de análise e no conjunto MPB.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Como visto no nível das letras, as r-palavras tendem também a se replicar sequencialmente, como demonstra a quase totalidade (11 dos 13 repertórios analisados) dos 2-gramas preferenciais dos <em>corpora</em>. Essa constatação parece reforçar a hipótese – agora num nível superior de organização – referente à tendência a um conservadorismo (ou consistência, ou ainda, economia) na construção rítmica.</p>
+<p>A observação dos percentuais com que os 2-gramas preferenciais se apresentam fornece também informações relevantes. Nesse aspecto, podemos considerar três categorias: (a) por volta de 2% de ocorrências (Jobim, Lins e Chico); (b) no patamar de 1 a 1.6% (Jazz, Choro, Milton e Rita); (c) menores do que 1% (Samba, Caetano, Bosco e Djavan – o repertório que apresenta o menor valor, 0.5%). Tais flutuações de percentuais são correlacionadas provavelmente à maior ou menor diversidade rítmica no nível dos segmentos melódicos (ou seja, r-palavras): assim, repertórios da primeira situação (por exemplo, Jobim) poderiam ser talvez vistos como menos diversificados do que os de baixos percentuais (Djavan).<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<section id="gráfico" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="gráfico"><span class="header-section-number">3.2.1</span> Gráfico</h4>
+<p>A relativa baixa diversidade geral dos 2-gramas de r-palavras em relação aos das r-letras fica visualmente evidente pela simples observação dos gráficos de barras abaixo, que apresentam as 30 mais comuns sequências de cada repertório. Isso se expressa pela presença (maciça, em certos casos, como no <em>corpora</em> Samba e Djavan) de “planaltos” que correspondem a equivalências percentuais entre 2-gramas (e denotam, consequentemente, baixa consistência de padrões rítmicos em médio nível).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-09.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 2-gramas referentes a sequências de r-palavras nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+</section>
+</section>
+</section>
+<section id="n-gramas-no-subdomínio-das-alturas" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="n-gramas-no-subdomínio-das-alturas"><span class="header-section-number">4</span> N-gramas no subdomínio das alturas</h2>
+<section id="nível-das-c-letras" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="nível-das-c-letras"><span class="header-section-number">4.1</span> Nível das c-letras</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-10.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>N-gramas (1 a 4) referentes a c-letras nos <em>corpora</em> de controle, de análise e no conjunto MPB.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>De início, em relação aos 1-gramas, observa-se uma forte consistência na presença da c-letra <em>p</em>, não apenas considerando os <em>corpora</em> nos quais é preferencial (10 em 13), como nos níveis percentuais em que isso acontece (em média, 30%). Dessa média divergem apenas Milton (quase 40%) e Djavan (23%).</p>
+<p>Nos 2-gramas, assim como acontece com as r-letras, a tendência de replicação é predominante. Começa também a surgir como uma alternativa à dupla <em>pp</em> (em oito <em>corpora</em>) a replicação do uníssono <em>uu</em> (quatro casos). Importante ainda assinalar que apenas nos repertórios Jazz, Choro e Chico Buarque todas as combinações possíveis (49) das sete c-letras acontecem. Djavan é o <em>corpus</em> com menos alternativas empregadas (43).</p>
+<p>A replicação é novamente total nos 3-gramas. Desta vez, a sequência <em>ppp</em> como a mais recorrente se apresenta em sete repertórios, com o 3-grama <em>uuu</em> predominante em cinco.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<p>Replicação também é a regra nos 4-gramas preferenciais, porém, nesse nível, as sequências de quatro uníssonos se tornam predominantes nos repertórios (10 deles, se incluirmos o conjunto MPB). Apenas nos <em>corpora</em> Choro, Lins e Lobo a sequência de passos escalares descendentes <em>pppp</em> é a mais comum.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+<p>É bastante interessante constatar como a tendência de replicação se estende além do subdomínio rítmico, alcançando a organização melódica. Essa generalização parece extrapolar a questão da economia de meios e se associar a metaforicamente a algo semelhante ao princípio físico da inércia. Parece-nos também como uma via promissora de prospecção investigar essa ramificação da hipótese inicial.</p>
+<section id="gráficos-2" class="level4" data-number="4.1.1">
+<h4 data-number="4.1.1" class="anchored" data-anchor-id="gráficos-2"><span class="header-section-number">4.1.1</span> Gráficos</h4>
+<p>2-GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 2-gramas referentes a sequências de c-letras no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-11.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 2-gramas referentes a sequências de c-letras nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+<p>3-GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-12n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 3-gramas referentes a sequências de c-letras no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<p>4-GRAMAS</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13a.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Jazz.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13b.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Choro.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13c.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Samba.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13d.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Jobim.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13e.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Lins.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13f.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Chico.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13g.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Edu.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13h.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Caetano.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13i.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Djavan.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13j.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Bosco.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13k.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Milton.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13l.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Gil.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13m.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no <em>corpus</em> Rita.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13n.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Os 30 mais recorrentes 4-gramas referentes a sequências de c-letras no conjunto MPB (<em>corpora</em> 1 a 10).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-13.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 4-gramas referentes a sequências de c-letras nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="nível-das-c-palavras" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="nível-das-c-palavras"><span class="header-section-number">4.2</span> Nível das c-palavras</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-15.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>2-gramas referentes a c-palavras nos <em>corpora</em> de controle, de análise e no conjunto MPB.</figcaption>
+</figure>
+</div>
+<p>DISCUSSÃO</p>
+<p>Parece paradoxal que, embora sejam construídos com um alfabeto bem mais limitado em relação ao das r-palavras (sete, contra 26 letras), os 2-gramas de c-palavras apresentem consideravelmente maior dispersão do que aquelas (ver discussão na seção 4.2 deste capítulo). Aqui, o valor percentual máximo (1.0), no <em>corpus</em> Caetano, é menos do que a metade do valor máximo observado para as r-palavras. Na maior parte dos demais repertórios, o percentual do 2-grama mais recorrente gira ao torno de 0.5%, com o Samba apresentando o valor mínimo (0.3%).<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> Como discutido anteriormente, esses dados sugerem haver, relativamente, ainda menos consistência motívica no subdomínio das alturas do que no rítmico. Isso, por si só, reforça o conhecimento intuitivo que temos sobre a importância do ritmo na caracterização de ideias melódicas, especialmente temáticas e motívicas (ou seja, aquelas que têm consequência construtiva).</p>
+<p>Por outro lado, observamos novamente a ubiquidade do princípio da replicação: em apenas dois dos repertórios a segunda c-palavra da sequência não replica a primeira.</p>
+<section id="gráfico-1" class="level4" data-number="4.2.1">
+<h4 data-number="4.2.1" class="anchored" data-anchor-id="gráfico-1"><span class="header-section-number">4.2.1</span> Gráfico</h4>
+<p>Em sintonia com o que é acima mencionado, a presença de “planaltos” nos gráficos abaixo parece ser ainda mais expressiva do que nos gráficos referentes aos 2-gramas de r-palavras.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../figs/ng-14.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Comparação dos 2-gramas referentes a sequências de c-palavras nos <em>corpora</em> de controle (acima), de análise (centro) e no conjunto MPB (abaixo).</figcaption>
+</figure>
+</div>
+
+
+
+</section>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-zipf-psycho" class="csl-entry" role="listitem">
+Zipf, George. 1965. <em>The Psycho-Biology of Language</em>. Cambridge: The MIT Press.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notas de rodapé</h2>
+
+<ol>
+<li id="fn1"><p>Ver <span class="citation" data-cites="zipf-psycho">Zipf (<a href="#ref-zipf-psycho" role="doc-biblioref">1965</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Segundo nosso entendimento, embora possíveis de serem obtidos, n-gramas com cardinalidades 5 em diante tornam-se cada vez menos informativos, além de implicarem pulverização das alternativas de sequências, perdendo, assim, valor como elementos de determinação estilística.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Uma convenção que adotaremos (não apenas para o quadro abaixo, mas também para os demais, é considerar como representativo apenas um dos n-gramas que por ventura ocupem a primeira posição estatística (há alguns poucos casos ao longo das sequências analisadas). Isso se justifica apenas por questões de conveniência, evitando-se assim o uso de células muito extensas nos quadros. Para o detalhamento das unidades que enventualmente compartilhem as posições preferenciais dos <em>rankings</em>, os gráficos (apresentados abaixo de cada discussão) serão suficientemente informativos.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Essa tendência se apresenta também nos n-gramas de maior cardinalidade, bem como no subdomínio das c-letras e mesmo no nível das r-palavras e c-palavras, como veremos.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Como discutido acima, as diferenças de percentuais e de totais de combinações entre os <em>corpora</em> traz complexidade e novos relevos para a avaliação dos 2-gramas (bem como para os demais casos), uma perspectiva que deixaremos para futuras abordagens do assunto.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Também no <em>corpus</em> global da MPB.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Evidentemente, esse argumento não deve ser considerado como uma conclusão, mas como um ponto de partida para uma possível linha de investigação. Afinal, o fato evidenciado dá conta apenas dos 2-gramas de r-palavras mais recorrentes.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Todos os repertórios com 2-grama preferencial <em>pp</em> evoluem para <em>ppp</em>, com a exceção do Samba, que apresenta <em>uuu</em> como mais recorrente.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Chama a atenção o fato de que os movimentos escalares replicados também são preferenciais no controle Jazz, mas em sentido ascendente (<em>PPPP</em>).<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>No conjunto MPB, o valor é ainda menor, 0.2%.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiada");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiada");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/projetompb\.github\.io\/site-dev\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../capitulos/atributos-secundarios.html" class="pagination-link" aria-label="Atributos secundários">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Atributos secundários</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../capitulos/ng-especificos.html" class="pagination-link" aria-label="n-gramas específicos">
+        <span class="nav-page-text">n-gramas específicos</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
+<a property="dct:title" rel="cc:attributionURL" href="https://projetompb.github.io/site/">Projeto MPB</a> is licensed under <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a>
+</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ProjetoMPB/site-dev/edit/main/capitulos/n-grams.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/blob/main/capitulos/n-grams.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/ProjetoMPB/site-dev/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Página construída em <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
