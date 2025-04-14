@@ -1,6 +1,6 @@
 ## Site oficial do Projeto MPB
 
-Repositório contendo a [página oficial do Projeto MPB](https://projetompb.github.io/site/)
+Repositório contendo a [página oficial do Projeto MPB](https://projetompb.github.io/site/) 
 
 Mantido pelo Grupo de Pesquisa MusMat [musmat.org](https://musmat.org/)
 
